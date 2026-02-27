@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spice Hub - Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:url('index.jpg') no-repeat center center fixed;
+background-size:cover;
+color:white;
+}
+
+.overlay{
+background:rgba(0,0,0,0.85);
+min-height:100vh;
+}
+
+/* NAV */
+.nav{
+display:flex;
+justify-content:space-between;
+padding:20px 60px;
+align-items:center;
+}
+
+.logo{
+font-size:28px;
+font-weight:700;
+letter-spacing:2px;
+}
+
+.nav div{
+cursor:pointer;
+font-weight:500;
+transition:0.3s;
+}
+
+.nav div:hover{
+color:#ff512f;
+}
+
+/* SIDEBAR */
+.sidebar{
+position:fixed;
+left:-250px;
+top:0;
+width:250px;
+height:100%;
+background:rgba(0,0,0,0.95);
+padding-top:80px;
+transition:0.4s;
+z-index:1000;
+}
+
+.sidebar a{
+display:block;
+padding:15px 25px;
+color:white;
+text-decoration:none;
+transition:0.3s;
+}
+
+.sidebar a:hover{
+background:linear-gradient(45deg,#ff512f,#dd2476);
+}
+
+.sidebar.active{
+left:0;
+}
+
+/* MENU TITLE */
+.menu-title{
+text-align:center;
+font-size:50px;
+font-weight:900;
+margin-top:10px;
+}
+
+/* CATEGORY HEADING */
+.category-title{
+font-size:32px;
+margin:40px 60px 10px;
+color:#ff512f;
+font-weight:700;
+}
+
+/* GRID */
+.menu-container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+padding:20px 60px;
+}
+
+/* CARD */
+.menu-card{
+background:rgba(0,0,0,0.8);
+border-radius:15px;
+overflow:hidden;
+transition:0.4s;
+box-shadow:0 0 20px rgba(255,0,0,0.2);
+}
+
+.menu-card:hover{
+transform:translateY(-10px) scale(1.03);
+box-shadow:0 0 25px rgba(255,0,0,0.6);
+}
+
+.menu-card img{
+width:100%;
+height:180px;
+object-fit:cover;
+}
+
+.menu-content{
+padding:15px;
+text-align:center;
+}
+
+.price{
+color:#ff512f;
+font-weight:600;
+margin:5px 0;
+}
+
+button{
+padding:10px 25px;
+border:none;
+border-radius:25px;
+background:linear-gradient(45deg,#ff512f,#dd2476);
+color:white;
+font-size:14px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+box-shadow:0 0 15px rgba(255,255,255,0.4);
+}
+
+.added{
+background:green !important;
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay">
+
+<div class="nav">
+<div style="display:flex;gap:20px;align-items:center;">
+<div onclick="goBack()" style="font-size:22px;">←</div>
+<div onclick="toggleSidebar()">☰</div>
+</div>
+
+<div class="logo">Spice Hub</div>
+
+<div onclick="location.href='cart.html'">🛒 Cart</div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+<div style="padding:15px 25px; font-size:20px; cursor:pointer;" onclick="toggleSidebar()">← Back</div>
+<a href="#starters">Starters</a>
+<a href="#maincourse">Main Course</a>
+<a href="#beverages">Beverages</a>
+<a href="#desserts">Desserts</a>
+<a href="#breads">Breads</a>
+</div>
+
+<h1 class="menu-title">Our Premium Menu</h1>
+
+<script>
+const imageMap = {
+"Paneer Tikka":"panneer.jpg",
+"Chicken 65":"c65.jpg",
+"Veg Spring Roll":"spring.jpg",
+"Gobi Manchurian":"gobi.jpg",
+"Fish Fingers":"fishfingers.jpg",
+
+"Butter Chicken":"butter.jpg",
+"Veg Biryani":"vegbiri.jpg",
+"Chicken Biryani":"chick.jpg",
+"Mutton Curry":"mutton.jpg",
+"Paneer Butter Masala":"panneerbutter.jpg",
+
+"Fresh Lime Soda":"lime.jpg",
+"Cold Coffee":"coldcoffee.jpg",
+"Mango Shake":"mango.jpg",
+"Masala Chai":"masala.jpg",
+"Mineral Water":"mineral.jpg",
+
+"Gulab Jamun":"gulabjamun.jpg",
+"Ice Cream":"icecream.jpg",
+"Chocolate Brownie":"brownie.jpg",
+"Fruit Salad":"fruitsalad.jpg",
+"Rasgulla":"rasagulla.jpg",
+
+"Butter Naan":"bnaan.jpg",
+"Garlic Naan":"gnaan.jpg",
+"Tandoori Roti":"troti.jpg",
+"Veg Combo":"veg combo.jpg",
+"Chicken Combo":"chickencombo.jpg"
+};
+</script>
+
+<script>
+function renderCategory(title,id,items){
+document.write(`<h2 class="category-title" id="${id}">${title}</h2>`);
+document.write(`<div class="menu-container">`);
+items.forEach(item=>{
+document.write(`
+<div class="menu-card">
+<img src="${imageMap[item[0]]}" alt="${item[0]}">
+<div class="menu-content">
+<h3>${item[0]}</h3>
+<div class="price">₹${item[1]}</div>
+<button onclick="addToCart(this)">Add to Cart</button>
+</div>
+</div>
+`);
+});
+document.write(`</div>`);
+}
+
+renderCategory("Starters","starters",[
+["Paneer Tikka",180],
+["Chicken 65",220],
+["Veg Spring Roll",150],
+["Gobi Manchurian",160],
+["Fish Fingers",240]
+]);
+
+renderCategory("Main Course","maincourse",[
+["Butter Chicken",320],
+["Veg Biryani",220],
+["Chicken Biryani",280],
+["Mutton Curry",350],
+["Paneer Butter Masala",250]
+]);
+
+renderCategory("Beverages","beverages",[
+["Fresh Lime Soda",60],
+["Cold Coffee",120],
+["Mango Shake",140],
+["Masala Chai",40],
+["Mineral Water",20]
+]);
+
+renderCategory("Desserts","desserts",[
+["Gulab Jamun",90],
+["Ice Cream",80],
+["Chocolate Brownie",120],
+["Fruit Salad",100],
+["Rasgulla",90]
+]);
+
+renderCategory("Breads","breads",[
+["Butter Naan",40],
+["Garlic Naan",50],
+["Tandoori Roti",30],
+["Veg Combo",299],
+["Chicken Combo",399]
+]);
+
+function toggleSidebar(){
+document.getElementById("sidebar").classList.toggle("active");
+}
+
+function addToCart(btn){
+const card = btn.closest(".menu-card");
+const name = card.querySelector("h3").innerText;
+const priceText = card.querySelector(".price").innerText;
+const price = parseInt(priceText.replace("₹",""));
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let existingItem = cart.find(item => item.name === name);
+if(existingItem){ existingItem.quantity += 1; }
+else{ cart.push({name,price,quantity:1}); }
+localStorage.setItem("cart", JSON.stringify(cart));
+btn.innerText="Added ✓";
+btn.classList.add("added");
+btn.disabled=true;
+}
+
+function goBack(){
+window.location.href="index.html";
+}
+</script>
+
+</div>
+</body>
+</html>

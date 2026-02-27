@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cart - Spice Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+body{font-family:Arial;background:#111;color:white;text-align:center;padding:30px;}
+button,input,select{padding:10px;margin:8px;width:250px;}
+button{cursor:pointer;background:orange;border:none;color:white;}
+.popup{
+position:fixed;top:50%;left:50%;
+transform:translate(-50%,-50%) scale(0);
+background:white;color:black;padding:30px;
+transition:0.3s;border-radius:8px;
+}
+.popup.active{transform:translate(-50%,-50%) scale(1);}
+.overlay{
+position:fixed;width:100%;height:100%;
+background:rgba(0,0,0,0.6);
+top:0;left:0;display:none;
+}
+.overlay.active{display:block;}
+.cart-item{
+margin:10px 0;
+}
+.back-btn{
+background:gray;
+}
+</style>
+</head>
+<body>
+
+<h2>Your Cart</h2>
+
+<div id="cartItems"></div>
+
+<h3>Total: ₹<span id="totalAmount">0</span></h3>
+<button onclick="placeOrder()">Place Order</button>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- Payment Popup -->
+<div class="popup" id="paymentPopup">
+<h3>Payment Details</h3>
+
+<select id="paymentMethod" onchange="toggleCard()">
+<option value="">Select Payment</option>
+<option value="card">Card</option>
+<option value="cod">Cash on Delivery</option>
+</select>
+
+<div id="cardDetails" style="display:none;">
+<input type="text" id="cardNumber" placeholder="Card Number (16 digits)">
+<input type="text" id="cardName" placeholder="Card Holder Name">
+<input type="text" id="expiry" placeholder="MM/YY">
+<input type="text" id="cvv" placeholder="CVV (3 digits)">
+</div>
+
+<button onclick="completePayment()">Pay Now</button>
+<button class="back-btn" onclick="closePayment()">Back</button>
+</div>
+
+<!-- Success Popup -->
+<div class="popup" id="successPopup">
+<h3>🎉 Order Placed Successfully!</h3>
+<p id="orderInfo"></p>
+<button onclick="downloadInvoice()">Download Invoice</button>
+</div>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let total = 0;
+let generatedOrderID = "";
+
+/* DISPLAY CART ITEMS */
+function loadCart(){
+const cartContainer = document.getElementById("cartItems");
+cartContainer.innerHTML = "";
+total = 0;
+
+if(cart.length === 0){
+cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+return;
+}
+
+cart.forEach(item=>{
+total += item.price * item.quantity;
+cartContainer.innerHTML += `
+<div class="cart-item">
+${item.name} × ${item.quantity} = ₹${item.price * item.quantity}
+</div>
+`;
+});
+
+document.getElementById("totalAmount").innerText = total;
+}
+
+loadCart();
+
+/* PAYMENT */
+function placeOrder(){
+if(total <= 0){
+alert("Cart is empty!");
+return;
+}
+document.getElementById("paymentPopup").classList.add("active");
+document.getElementById("overlay").classList.add("active");
+}
+
+function closePayment(){
+document.getElementById("paymentPopup").classList.remove("active");
+document.getElementById("overlay").classList.remove("active");
+}
+
+function toggleCard(){
+let method = document.getElementById("paymentMethod").value;
+document.getElementById("cardDetails").style.display =
+(method === "card") ? "block" : "none";
+}
+
+function validateCard(){
+let number = document.getElementById("cardNumber").value;
+let name = document.getElementById("cardName").value;
+let expiry = document.getElementById("expiry").value;
+let cvv = document.getElementById("cvv").value;
+
+let cardRegex = /^[0-9]{16}$/;
+let cvvRegex = /^[0-9]{3}$/;
+let expiryRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+
+if(!cardRegex.test(number)){
+alert("Invalid Card Number");
+return false;
+}
+if(name.trim() === ""){
+alert("Enter Card Holder Name");
+return false;
+}
+if(!expiryRegex.test(expiry)){
+alert("Invalid Expiry Date (MM/YY)");
+return false;
+}
+if(!cvvRegex.test(cvv)){
+alert("Invalid CVV");
+return false;
+}
+return true;
+}
+
+function generateOrderID(){
+return "ORD" + Math.floor(100000 + Math.random() * 900000);
+}
+
+function completePayment(){
+
+let method = document.getElementById("paymentMethod").value;
+
+if(method === ""){
+alert("Select Payment Method");
+return;
+}
+
+if(method === "card"){
+if(!validateCard()) return;
+}
+
+generatedOrderID = generateOrderID();
+
+document.getElementById("paymentPopup").classList.remove("active");
+document.getElementById("successPopup").classList.add("active");
+
+document.getElementById("orderInfo").innerText =
+"Order ID: " + generatedOrderID + " | Amount: ₹" + total;
+
+confetti({particleCount:250,spread:120,origin:{y:0.6}});
+
+/* Clear cart after order */
+localStorage.removeItem("cart");
+cart = [];
+}
+
+async function downloadInvoice(){
+
+const { jsPDF } = window.jspdf;
+const doc = new jsPDF();
+
+doc.setFontSize(16);
+doc.text("Spice Hub Invoice", 20, 20);
+doc.setFontSize(12);
+doc.text("Order ID: " + generatedOrderID, 20, 40);
+doc.text("Total Amount: ₹" + total, 20, 50);
+doc.text("Thank you for your order!", 20, 70);
+
+doc.save("Invoice_" + generatedOrderID + ".pdf");
+}
+
+</script>
+
+</body>
+</html>

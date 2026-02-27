@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Spice Hub - Table Booking</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+/* Background */
+body{
+background:
+linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80');
+background-size:cover;
+backface-visibility: calc(80);
+background-position:center;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+overflow-x:hidden;
+}
+
+/* Floating Particles */
+.particle{
+position:absolute;
+width:6px;
+height:6px;
+background:#ff3c00;
+border-radius:50%;
+opacity:0.6;
+animation:float 10s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh) scale(0);}
+100%{transform:translateY(-10vh) scale(1);}
+}
+
+/* Header */
+.header{
+width:100%;
+text-align:center;
+padding:60px 20px 10px;
+color:white;
+animation:fadeDown 1.5s ease;
+}
+
+.header h1{
+font-size:44px;
+color:#ff3c00;
+letter-spacing:2px;
+margin-bottom:10px;
+}
+
+.header p{
+max-width:700px;
+margin:auto;
+font-size:16px;
+color:#eee;
+line-height:1.6;
+}
+
+.tagline{
+margin-top:10px;
+font-size:14px;
+color:#ff9800;
+letter-spacing:1px;
+}
+
+/* Back Arrow */
+.back-arrow{
+position:absolute;
+left:25px;
+top:35px;
+font-size:26px;
+color:white;
+cursor:pointer;
+}
+
+/* Booking Box */
+.booking-container{
+margin-top:30px;
+background:rgba(0,0,0,0.85);
+backdrop-filter:blur(8px);
+padding:30px;
+border-radius:20px;
+width:430px;
+color:white;
+box-shadow:0 0 30px rgba(255,60,0,0.5);
+border:1px solid #ff3c00;
+animation:fadeUp 1.5s ease;
+}
+
+h2{
+text-align:center;
+margin-bottom:20px;
+font-size:22px;
+color:#ff3c00;
+}
+
+table{
+width:100%;
+border-spacing:14px;
+}
+
+td{
+font-size:14px;
+}
+
+input,select{
+width:100%;
+padding:8px;
+border-radius:6px;
+border:none;
+outline:none;
+background:#1a1a1a;
+color:white;
+border:1px solid #333;
+transition:0.3s;
+}
+
+input:focus,select:focus{
+border:1px solid #ff3c00;
+box-shadow:0 0 8px #ff3c00;
+}
+
+.btn{
+background:linear-gradient(45deg,#ff3c00,#ff7300);
+color:white;
+padding:10px;
+width:100%;
+border:none;
+border-radius:20px;
+font-size:15px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.btn:hover{
+transform:scale(1.05);
+box-shadow:0 0 12px #ff3c00;
+}
+
+/* Animations */
+@keyframes fadeDown{
+from{opacity:0;transform:translateY(-40px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(40px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* Popup (UNCHANGED CELEBRATION) */
+.popup{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0);
+background:white;
+padding:40px;
+border-radius:15px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
+transition:0.4s ease-in-out;
+z-index:10;
+}
+
+.popup.active{
+transform:translate(-50%,-50%) scale(1);
+}
+
+.popup h3{
+color:green;
+margin-bottom:15px;
+}
+
+.close-btn{
+margin-top:20px;
+padding:10px 20px;
+background:#ff9800;
+border:none;
+border-radius:6px;
+cursor:pointer;
+color:white;
+}
+
+.overlay{
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+top:0;
+left:0;
+display:none;
+}
+
+.overlay.active{
+display:block;
+}
+
+@media(max-width:500px){
+.booking-container{
+width:90%;
+padding:20px;
+}
+.header h1{
+font-size:28px;
+}
+}
+</style>
+</head>
+<body>
+
+<div class="back-arrow" onclick="goBack()">⬅</div>
+
+<div class="header">
+<h1>Spice Hub</h1>
+<p>Step into a world of rich aromas, vibrant spices, and unforgettable flavors. Reserve your table and enjoy a luxurious dining experience crafted with passion.</p>
+<div class="tagline">✨ Fine Dining • Authentic Taste • Cozy Ambience ✨</div>
+</div>
+
+<div class="booking-container">
+<h2>Reserve Your Table</h2>
+
+<form id="bookingForm">
+<table>
+<tr>
+<td>Full Name</td>
+<td><input type="text" required></td>
+</tr>
+<tr>
+<td>Email</td>
+<td><input type="email" required></td>
+</tr>
+<tr>
+<td>Phone Number</td>
+<td><input type="tel" required></td>
+</tr>
+<tr>
+<td>Booking Date</td>
+<td><input type="date" required></td>
+</tr>
+<tr>
+<td>Booking Time</td>
+<td><input type="time" required></td>
+</tr>
+<tr>
+<td>Number of Guests</td>
+<td>
+<select required>
+<option value="">Select</option>
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+<option>6+</option>
+</select>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<button type="submit" class="btn">Book Now</button>
+</td>
+</tr>
+</table>
+</form>
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="popup" id="popup">
+<h3>🎉 Booking Confirmed! 🎉</h3>
+<p>Your table has been successfully reserved.</p>
+<button class="close-btn" onclick="closePopup()">Close</button>
+</div>
+
+<script>
+
+/* Floating particles generator */
+for(let i=0;i<25;i++){
+let particle=document.createElement("div");
+particle.classList.add("particle");
+particle.style.left=Math.random()*100+"%";
+particle.style.animationDuration=(6+Math.random()*6)+"s";
+particle.style.opacity=Math.random();
+document.body.appendChild(particle);
+}
+
+const form=document.getElementById("bookingForm");
+const popup=document.getElementById("popup");
+const overlay=document.getElementById("overlay");
+
+form.addEventListener("submit",function(e){
+e.preventDefault();
+
+popup.classList.add("active");
+overlay.classList.add("active");
+
+confetti({
+particleCount:200,
+spread:100,
+origin:{y:0.6}
+});
+
+form.reset();
+});
+
+function closePopup(){
+popup.classList.remove("active");
+overlay.classList.remove("active");
+}
+
+function goBack(){
+window.location.href="index.html";
+}
+</script>
+
+</body>
+</html>
