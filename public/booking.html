@@ -224,6 +224,7 @@ font-size:28px;
 .nav{
 display:flex;
 justify-content:space-between;
+align-items:center;
 padding:20px 60px;
 color:white;
 }
@@ -231,19 +232,24 @@ color:white;
 .nav-links{
 display:flex;
 gap:25px;
+}
+
+.nav-links div{
+color:white;
 cursor:pointer;
+font-weight:500;
 }
 
 @media(max-width:768px){
 
 .nav{
-flex-direction:column;
-gap:10px;
+flex-direction:row;
+padding:20px;
 }
-  .nav-links div{
-color:white;
-cursor:pointer;
-font-weight:500;
+
+.nav-links{
+gap:15px;
+font-size:14px;
 }
 
 }
