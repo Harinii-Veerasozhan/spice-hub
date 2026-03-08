@@ -87,14 +87,22 @@ color:#ff512f;
 font-weight:700;
 }
 
-/* GRID */
 .menu-container{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:repeat(4,1fr);
 gap:30px;
 padding:20px 60px;
 }
 
+@media(max-width:768px){
+
+.menu-container{
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+padding:20px;
+}
+
+}
 /* CARD */
 .menu-card{
 background:rgba(0,0,0,0.8);
@@ -206,7 +214,18 @@ padding:20px;
 </head>
 
 <body>
+<div class="nav">
 
+<div class="logo">Spice Hub</div>
+
+<div class="nav-links">
+<div onclick="location.href='index.html'">Home</div>
+<div onclick="location.href='menu.html'">Menu</div>
+<div onclick="location.href='booking.html'">Book Table</div>
+<div onclick="location.href='cart.html'">Cart</div>
+</div>
+
+</div>
 <div class="overlay">
 
 <div class="nav">
