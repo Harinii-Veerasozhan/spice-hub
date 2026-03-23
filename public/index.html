@@ -1,151 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <title>Spice Hub</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
-
 <style>
-
 body{
 margin:0;
-font-family:'Poppins',sans-serif;
-background:url('index.jpg') no-repeat center center fixed;
-background-size:cover;
+font-family:Arial;
+background:url('index.jpg') no-repeat center/cover;
 color:white;
 }
 
 .overlay{
-background:rgba(0,0,0,0.75);
+background:rgba(0,0,0,0.8);
 min-height:100vh;
 }
 
 .nav{
 display:flex;
 justify-content:space-between;
-align-items:center;
-padding:20px 60px;
-}
-
-.nav-links{
-display:flex;
-gap:30px;
-}
-
-.nav-links div{
-cursor:pointer;
+padding:20px 50px;
 }
 
 .logo{
 font-size:28px;
-font-weight:700;
+font-weight:bold;
 }
 
-/* HERO */
+.nav div{
+cursor:pointer;
+margin-left:20px;
+}
 
 .hero{
 text-align:center;
-padding:80px 20px;
+margin-top:120px;
 }
 
 .hero h1{
-font-size:70px;
-margin:0;
-}
-
-.hero p{
-font-size:20px;
-margin:20px 0;
-}
-
-/* BRANDING SECTION */
-
-.brand{
-text-align:center;
-padding:50px 20px;
-background:rgba(0,0,0,0.8);
-}
-
-.brand h2{
-font-size:40px;
-margin-bottom:10px;
-}
-
-.brand p{
-max-width:800px;
-margin:auto;
-line-height:1.7;
-}
-
-/* ACTION SECTION */
-
-.actions{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:40px;
-padding:60px;
-}
-
-.action-card{
-background:rgba(0,0,0,0.8);
-border-radius:15px;
-text-align:center;
-padding:30px;
-}
-
-.action-card h3{
-font-size:28px;
+font-size:60px;
 }
 
 button{
-padding:12px 30px;
+padding:15px 30px;
 border:none;
 border-radius:25px;
-background:linear-gradient(45deg,#ff512f,#dd2476);
+background:#1db954;
 color:white;
-font-size:16px;
 cursor:pointer;
+margin:10px;
 }
-
-/* FEATURES */
-
-.features{
-display:flex;
-justify-content:center;
-gap:40px;
-padding:40px;
-background:rgba(0,0,0,0.8);
-}
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-.hero h1{
-font-size:36px;
-}
-
-.actions{
-grid-template-columns:repeat(2,1fr);
-padding:20px;
-gap:15px;
-}
-
-.features{
-flex-wrap:wrap;
-gap:20px;
-}
-
-.nav{
-flex-direction:column;
-gap:10px;
-}
-
-}
-
 </style>
 </head>
 
@@ -156,68 +60,19 @@ gap:10px;
 <div class="nav">
 <div class="logo">Spice Hub</div>
 
-<div class="nav-links">
-<div onclick="location.href='index.html'">Home</div>
-<div onclick="location.href='menu.html'">Menu</div>
-<div onclick="location.href='booking.html'">Book Table</div>
-<div onclick="location.href='cart.html'">Cart</div>
+<div>
+<span onclick="location.href='menu.html'">Menu</span>
+<span onclick="location.href='booking.html'">Booking</span>
+<span onclick="location.href='cart.html'">Cart 🛒</span>
 </div>
-
 </div>
 
 <div class="hero">
-
-<h1>Luxury Dining Experience</h1>
-<p>Premium taste • Elegant ambience • World class chefs</p>
+<h1>Welcome to Spice Hub</h1>
+<p>Experience premium dining</p>
 
 <button onclick="location.href='menu.html'">Explore Menu</button>
-
-</div>
-
-<div class="brand">
-
-<h2>Our Story</h2>
-
-<p>
-At Spice Hub we believe dining is not just eating — it is an experience.
-Our chefs craft every dish using premium ingredients, authentic spices,
-and modern culinary techniques to deliver unforgettable flavors.
-From romantic dinners to family celebrations, we bring luxury dining to your table.
-</p>
-
-</div>
-
-<div class="actions">
-
-<div class="action-card">
-
-<h3>View Our Menu</h3>
-
-<p>Explore our delicious collection of appetizers, main courses and desserts.</p>
-
-<button onclick="location.href='menu.html'">View Menu</button>
-
-</div>
-
-<div class="action-card">
-
-<h3>Reserve a Table</h3>
-
-<p>Book your dining experience and skip the waiting time.</p>
-
-<button onclick="location.href='booking.html'">Book Now</button>
-
-</div>
-
-</div>
-
-<div class="features">
-
-<div>🍽 Fine Dining</div>
-<div>👨‍🍳 Expert Chefs</div>
-<div>🌿 Fresh Ingredients</div>
-<div>⭐ Premium Service</div>
-
+<button onclick="location.href='booking.html'">Book Table</button>
 </div>
 
 </div>
