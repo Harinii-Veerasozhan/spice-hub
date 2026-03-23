@@ -2,6 +2,10 @@
 <html>
 <head>
 <title>Cart - Spice Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
 body{
@@ -9,82 +13,278 @@ font-family:Arial;
 background:#111;
 color:white;
 text-align:center;
+padding:20px;
 }
 
-h1{margin-top:30px;}
+h2{margin-bottom:20px;}
 
-.cart-item{
-display:flex;
-justify-content:space-between;
-margin:20px auto;
-width:60%;
-background:#222;
-padding:15px;
-border-radius:10px;
+button,input,select{
+padding:10px;
+margin:8px;
+width:250px;
+border-radius:8px;
+border:none;
 }
 
 button{
-padding:8px 15px;
-border:none;
-background:red;
-color:white;
-border-radius:10px;
 cursor:pointer;
+background:orange;
+color:white;
 }
 
-.checkout{
-margin-top:30px;
-padding:15px 30px;
-background:green;
-border:none;
-color:white;
-font-size:18px;
+.back-btn{
+background:gray;
+}
+
+.popup{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0);
+background:white;
+color:black;
+padding:30px;
+border-radius:10px;
+transition:0.3s;
+z-index:10;
+}
+
+.popup.active{
+transform:translate(-50%,-50%) scale(1);
+}
+
+.overlay{
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+top:0;
+left:0;
+display:none;
+}
+
+.overlay.active{
+display:block;
+}
+
+.cart-item{
+margin:10px auto;
+padding:10px;
+background:#222;
+border-radius:10px;
+width:80%;
+}
+
+.remove-btn{
+background:red;
+width:auto;
+padding:5px 10px;
+margin-left:10px;
+}
+
+.empty{
+color:#aaa;
+margin-top:20px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>Your Cart</h1>
-<div id="cartContainer"></div>
+<button class="back-btn" onclick="goBack()">⬅ Back to Menu</button>
 
-<h2 id="total"></h2>
+<h2>Your Cart</h2>
 
-<button class="checkout" onclick="checkout()">Proceed to Checkout</button>
+<div id="cartItems"></div>
+
+<h3>Total: ₹<span id="totalAmount">0</span></h3>
+
+<button onclick="placeOrder()">Place Order</button>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- PAYMENT POPUP -->
+<div class="popup" id="paymentPopup">
+<h3>Payment Details</h3>
+
+<select id="paymentMethod" onchange="toggleCard()">
+<option value="">Select Payment</option>
+<option value="card">Card</option>
+<option value="cod">Cash on Delivery</option>
+</select>
+
+<div id="cardDetails" style="display:none;">
+<input type="text" id="cardNumber" placeholder="Card Number (16 digits)">
+<input type="text" id="cardName" placeholder="Card Holder Name">
+<input type="text" id="expiry" placeholder="MM/YY">
+<input type="text" id="cvv" placeholder="CVV (3 digits)">
+</div>
+
+<button onclick="completePayment()">Pay Now</button>
+<button class="back-btn" onclick="closePayment()">Cancel</button>
+</div>
+
+<!-- SUCCESS POPUP -->
+<div class="popup" id="successPopup">
+<h3>🎉 Order Placed Successfully!</h3>
+<p id="orderInfo"></p>
+<button onclick="downloadInvoice()">Download Invoice</button>
+<button onclick="goHome()">Go Home</button>
+</div>
 
 <script>
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let container = document.getElementById("cartContainer");
 
-function renderCart(){
-container.innerHTML="";
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let total = 0;
+let generatedOrderID = "";
+
+/* LOAD CART */
+function loadCart(){
+const container = document.getElementById("cartItems");
+container.innerHTML = "";
+total = 0;
+
+if(cart.length === 0){
+container.innerHTML = "<p class='empty'>Your cart is empty</p>";
+document.getElementById("totalAmount").innerText = 0;
+return;
+}
 
 cart.forEach((item,index)=>{
 total += item.price * item.quantity;
 
 container.innerHTML += `
 <div class="cart-item">
-<span>${item.name} x ${item.quantity}</span>
-<span>₹${item.price * item.quantity}</span>
-<button onclick="removeItem(${index})">Remove</button>
+${item.name} × ${item.quantity} = ₹${item.price * item.quantity}
+<button class="remove-btn" onclick="removeItem(${index})">X</button>
 </div>`;
 });
 
-document.getElementById("total").innerText="Total: ₹"+total;
+document.getElementById("totalAmount").innerText = total;
 }
 
+/* REMOVE ITEM */
 function removeItem(index){
 cart.splice(index,1);
 localStorage.setItem("cart",JSON.stringify(cart));
-renderCart();
+loadCart();
 }
 
-function checkout(){
-window.location.href="checkout.html";
+/* PLACE ORDER */
+function placeOrder(){
+if(total <= 0){
+alert("Cart is empty!");
+return;
+}
+document.getElementById("paymentPopup").classList.add("active");
+document.getElementById("overlay").classList.add("active");
 }
 
-renderCart();
+function closePayment(){
+document.getElementById("paymentPopup").classList.remove("active");
+document.getElementById("overlay").classList.remove("active");
+}
+
+/* CARD TOGGLE */
+function toggleCard(){
+let method = document.getElementById("paymentMethod").value;
+document.getElementById("cardDetails").style.display =
+(method === "card") ? "block" : "none";
+}
+
+/* VALIDATION */
+function validateCard(){
+let number = document.getElementById("cardNumber").value;
+let name = document.getElementById("cardName").value;
+let expiry = document.getElementById("expiry").value;
+let cvv = document.getElementById("cvv").value;
+
+if(!/^[0-9]{16}$/.test(number)){
+alert("Invalid Card Number");
+return false;
+}
+if(name.trim() === ""){
+alert("Enter Card Holder Name");
+return false;
+}
+if(!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)){
+alert("Invalid Expiry (MM/YY)");
+return false;
+}
+if(!/^[0-9]{3}$/.test(cvv)){
+alert("Invalid CVV");
+return false;
+}
+return true;
+}
+
+/* GENERATE ORDER ID */
+function generateOrderID(){
+return "ORD" + Math.floor(100000 + Math.random() * 900000);
+}
+
+/* COMPLETE PAYMENT */
+function completePayment(){
+
+let method = document.getElementById("paymentMethod").value;
+
+if(method === ""){
+alert("Select Payment Method");
+return;
+}
+
+if(method === "card"){
+if(!validateCard()) return;
+}
+
+generatedOrderID = generateOrderID();
+
+document.getElementById("paymentPopup").classList.remove("active");
+document.getElementById("successPopup").classList.add("active");
+
+document.getElementById("orderInfo").innerText =
+"Order ID: " + generatedOrderID + " | Amount: ₹" + total;
+
+/* CONFETTI 🎉 */
+confetti({
+particleCount:250,
+spread:120,
+origin:{y:0.6}
+});
+
+/* CLEAR CART */
+localStorage.removeItem("cart");
+cart = [];
+}
+
+/* DOWNLOAD PDF */
+async function downloadInvoice(){
+
+const { jsPDF } = window.jspdf;
+const doc = new jsPDF();
+
+doc.setFontSize(16);
+doc.text("Spice Hub Invoice", 20, 20);
+doc.setFontSize(12);
+doc.text("Order ID: " + generatedOrderID, 20, 40);
+doc.text("Total Amount: ₹" + total, 20, 50);
+doc.text("Thank you for your order!", 20, 70);
+
+doc.save("Invoice_" + generatedOrderID + ".pdf");
+}
+
+/* NAVIGATION */
+function goBack(){
+window.location.href="menu.html";
+}
+
+function goHome(){
+window.location.href="index.html";
+}
+
+/* INIT */
+loadCart();
+
 </script>
 
 </body>
