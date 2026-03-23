@@ -1,293 +1,165 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Spice Hub</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
-
+<title>Starbucks – Where Every Cup Tells a Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Raleway:wght@300;400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+:root {
+  --green-dark: #0f2318;
+  --green-mid: #1a3d28;
+  --green-brand: #00704a;
+  --green-accent: #00a862;
+  --gold: #c9a84c;
+  --white: #ffffff;
+}
+body {
+  margin:0;
+  font-family:'Raleway',sans-serif;
+  background:var(--green-dark);
+  color:white;
 }
 
-body{
-background:#0b3d2e;
-color:white;
-overflow-x:hidden;
+/* IMAGE FIX */
+.drink-img, .menu-img {
+  width:100%;
+  height:120px;
+  object-fit:cover;
+  border-radius:12px;
+}
+.drink-img-circle {
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  object-fit:cover;
 }
 
-/* NAVBAR */
-.nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px;
+.hero {
+  display:flex;
+  justify-content:space-between;
+  padding:40px;
+}
+.hero-left h1 {
+  font-size:50px;
+}
+.hero-cup img {
+  width:220px;
+}
+.hero-thumb-row {
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+.hero-thumb {
+  border:2px solid #555;
+  border-radius:50%;
+  padding:5px;
 }
 
-.logo{
-font-size:22px;
-font-weight:700;
+.drinks-grid {
+  display:flex;
+  gap:15px;
+  padding:20px;
+}
+.drink-card {
+  background:white;
+  color:black;
+  padding:10px;
+  border-radius:10px;
+  width:150px;
 }
 
-.nav-icons span{
-margin-left:15px;
-font-size:20px;
-cursor:pointer;
+.menu-items-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  padding:20px;
+}
+.menu-item-card {
+  background:#1a3d28;
+  padding:10px;
+  border-radius:10px;
 }
 
-/* HERO SECTION */
-.hero{
-background:#0f4a39;
-margin:10px;
-border-radius:25px;
-padding:30px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-box-shadow:0 10px 30px rgba(0,0,0,0.4);
-}
-
-.hero-text{
-max-width:400px;
-}
-
-.hero-text h1{
-font-size:55px;
-font-weight:900;
-line-height:1.1;
-}
-
-.hero-text p{
-margin:15px 0;
-color:#dcdcdc;
-}
-
-.hero-text button{
-padding:12px 30px;
-border:none;
-border-radius:30px;
-background:#1db954;
-color:white;
-font-size:16px;
-cursor:pointer;
-}
-
-.hero-img img{
-width:280px;
-filter:drop-shadow(0 10px 20px rgba(0,0,0,0.5));
-}
-
-/* CATEGORY SECTION */
-.categories{
-display:flex;
-gap:10px;
-padding:15px 20px;
-overflow-x:auto;
-}
-
-.categories button{
-padding:10px 20px;
-border:none;
-border-radius:25px;
-background:white;
-color:black;
-cursor:pointer;
-}
-
-.categories .active{
-background:#1db954;
-color:white;
-}
-
-/* MENU SECTION CARD BLOCK */
-.menu-section{
-background:#0f4a39;
-margin:15px;
-border-radius:25px;
-padding:20px;
-box-shadow:0 10px 25px rgba(0,0,0,0.4);
-}
-
-/* SCROLL ITEMS */
-.scroll{
-display:flex;
-gap:15px;
-overflow-x:auto;
-padding-top:10px;
-}
-
-.card{
-min-width:170px;
-background:white;
-color:black;
-border-radius:20px;
-padding:10px;
-text-align:center;
-}
-
-.card img{
-width:100%;
-height:120px;
-object-fit:cover;
-border-radius:12px;
-}
-
-.price{
-color:#1db954;
-font-weight:bold;
-}
-
-/* BANNER */
-.banner{
-text-align:center;
-font-size:32px;
-font-weight:900;
-margin:30px 0;
-}
-
-/* POPULAR */
-.popular{
-background:#0f4a39;
-margin:15px;
-padding:20px;
-border-radius:25px;
-box-shadow:0 10px 25px rgba(0,0,0,0.4);
-}
-
-.popular-items{
-display:flex;
-gap:15px;
-flex-wrap:wrap;
-justify-content:center;
-}
-
-/* CONTACT */
-.contact{
-background:#06281e;
-padding:30px;
-text-align:center;
-margin-top:20px;
-border-top-left-radius:20px;
-border-top-right-radius:20px;
-}
-
-/* MOBILE */
-@media(max-width:768px){
-.hero{
-flex-direction:column;
-text-align:center;
-}
-.hero-text h1{
-font-size:36px;
-}
-.hero-img img{
-margin-top:20px;
-width:220px;
-}
-}
 </style>
 </head>
-
 <body>
 
-<!-- NAV -->
-<div class="nav">
-<div class="logo">☕ Spice Hub</div>
-<div class="nav-icons">
-<span onclick="location.href='menu.html'">📋</span>
-<span onclick="location.href='cart.html'">🛒</span>
-</div>
-</div>
-
 <!-- HERO -->
-<div class="hero">
-<div class="hero-text">
-<h1>WHAT'S<br>YOURS?</h1>
-<p>Where every sip tells a story</p>
-<button onclick="location.href='menu.html'">Order Now</button>
-</div>
+<section class="hero">
+  <div class="hero-left">
+    <h1>Enjoy Your <span style="color:gold">Coffee</span></h1>
 
-<div class="hero-img">
-<img src="coffee.jpg">
-</div>
-</div>
+    <div class="hero-thumb-row">
+      <div class="hero-thumb"><img src="mocha.jpg" class="drink-img-circle"></div>
+      <div class="hero-thumb"><img src="coffee.jpg" class="drink-img-circle"></div>
+      <div class="hero-thumb"><img src="caramel.jpg" class="drink-img-circle"></div>
+      <div class="hero-thumb"><img src="hazel.jpg" class="drink-img-circle"></div>
+      <div class="hero-thumb"><img src="masala.jpg" class="drink-img-circle"></div>
+    </div>
+  </div>
 
-<!-- CATEGORY -->
-<div class="categories">
-<button class="active">Drinks</button>
-<button>Hot</button>
-<button>Cold</button>
-<button>Special</button>
-</div>
+  <div class="hero-cup">
+    <img src="mocha.jpg">
+  </div>
+</section>
 
-<!-- DRINKS SECTION -->
-<div class="menu-section">
-<h2>Drinks</h2>
+<!-- DRINKS -->
+<section class="drinks-grid">
+  <div class="drink-card">
+    <img src="mocha.jpg" class="drink-img">
+    <h4>Mocha</h4>
+  </div>
 
-<div class="scroll">
-<div class="card">
-<img src="mocha.jpg">
-<h4>Mocha</h4>
-<div class="price">₹180</div>
-</div>
+  <div class="drink-card">
+    <img src="coffee.jpg" class="drink-img">
+    <h4>Coffee</h4>
+  </div>
 
-<div class="card">
-<img src="caramel.jpg">
-<h4>Caramel</h4>
-<div class="price">₹200</div>
-</div>
+  <div class="drink-card">
+    <img src="caramel.jpg" class="drink-img">
+    <h4>Caramel</h4>
+  </div>
 
-<div class="card">
-<img src="hazel.jpg">
-<h4>Hazelnut</h4>
-<div class="price">₹190</div>
-</div>
+  <div class="drink-card">
+    <img src="hazel.jpg" class="drink-img">
+    <h4>Hazel</h4>
+  </div>
 
-<div class="card">
-<img src="masala.jpg">
-<h4>Masala Tea</h4>
-<div class="price">₹80</div>
-</div>
-</div>
+  <div class="drink-card">
+    <img src="masala.jpg" class="drink-img">
+    <h4>Masala</h4>
+  </div>
+</section>
 
-</div>
+<!-- MENU -->
+<section class="menu-items-grid">
+  <div class="menu-item-card">
+    <img src="mocha.jpg" class="menu-img">
+    <h4>Mocha Latte</h4>
+  </div>
 
-<!-- BANNER -->
-<div class="banner">UNMATCHED QUALITY</div>
+  <div class="menu-item-card">
+    <img src="coffee.jpg" class="menu-img">
+    <h4>Classic Coffee</h4>
+  </div>
 
-<!-- POPULAR -->
-<div class="popular">
-<h2>Popular</h2>
+  <div class="menu-item-card">
+    <img src="caramel.jpg" class="menu-img">
+    <h4>Caramel Brew</h4>
+  </div>
 
-<div class="popular-items">
-<div class="card">
-<img src="mocha.jpg">
-<h4>Mocha Special</h4>
-</div>
+  <div class="menu-item-card">
+    <img src="hazel.jpg" class="menu-img">
+    <h4>Hazelnut Coffee</h4>
+  </div>
 
-<div class="card">
-<img src="caramel.jpg">
-<h4>Caramel Delight</h4>
-</div>
-
-<div class="card">
-<img src="hazel.jpg">
-<h4>Hazelnut Classic</h4>
-</div>
-</div>
-
-</div>
-
-<!-- CONTACT -->
-<div class="contact">
-<h3>Contact Us</h3>
-<p>📞 987654321</p>
-</div>
+  <div class="menu-item-card">
+    <img src="masala.jpg" class="menu-img">
+    <h4>Masala Chai</h4>
+  </div>
+</section>
 
 </body>
 </html>
