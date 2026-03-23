@@ -1,75 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Spice Hub Menu</title>
+<title>Menu</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
-
-body{
-background:#0d3b2e;
-color:white;
-}
+body{background:#0c3b2e;color:white;}
 
 /* NAV */
 .nav{
 display:flex;
 justify-content:space-between;
-padding:15px 30px;
+padding:15px;
 }
 
+/* TABS */
 .tabs{
 display:flex;
 justify-content:center;
 gap:10px;
-flex-wrap:wrap;
 margin:20px;
+flex-wrap:wrap;
 }
-
 .tabs button{
-padding:10px 20px;
+padding:10px;
 border:none;
 border-radius:20px;
 background:white;
 cursor:pointer;
 }
-
-.tabs .active{
-background:#1db954;
-color:white;
-}
+.tabs .active{background:#1db954;color:white;}
 
 /* PRODUCTS */
 .products{
 display:flex;
-overflow-x:auto;
+flex-wrap:wrap;
+justify-content:center;
 gap:20px;
 padding:20px;
 }
-
 .card{
-min-width:220px;
+width:180px;
 background:white;
 color:black;
 border-radius:20px;
 padding:15px;
 text-align:center;
 }
-
-.card img{
-width:120px;
-}
-
-.price{
-color:#1db954;
-font-weight:bold;
-}
-
+.card img{width:100px;height:100px;object-fit:cover;}
+.price{color:#1db954;font-weight:bold;}
 button{
-padding:8px 15px;
-border:none;
 background:#1db954;
+border:none;
+padding:8px;
 color:white;
 border-radius:15px;
 cursor:pointer;
@@ -85,39 +69,57 @@ cursor:pointer;
 </div>
 
 <div class="tabs">
-<button class="active" onclick="show('starters',this)">Starters</button>
-<button onclick="show('main',this)">Main</button>
-<button onclick="show('drinks',this)">Drinks</button>
-<button onclick="show('desserts',this)">Desserts</button>
+<button class="active" onclick="filter('all',this)">All</button>
+<button onclick="filter('drinks',this)">Drinks</button>
+<button onclick="filter('food',this)">Food</button>
+<button onclick="filter('desserts',this)">Desserts</button>
+<button onclick="filter('breads',this)">Breads</button>
 </div>
 
-<div id="menu"></div>
+<div class="products">
+
+<div class="card" data="drinks">
+<img src="coldcoffee.jpg">
+<h3>Cold Coffee</h3>
+<div class="price">₹120</div>
+<button onclick="add('Cold Coffee',120)">Add</button>
+</div>
+
+<div class="card" data="food">
+<img src="chick.jpg">
+<h3>Chicken Biryani</h3>
+<div class="price">₹280</div>
+<button onclick="add('Chicken Biryani',280)">Add</button>
+</div>
+
+<div class="card" data="desserts">
+<img src="gulabjamun.jpg">
+<h3>Gulab Jamun</h3>
+<div class="price">₹90</div>
+<button onclick="add('Gulab Jamun',90)">Add</button>
+</div>
+
+<div class="card" data="breads">
+<img src="bnaan.jpg">
+<h3>Butter Naan</h3>
+<div class="price">₹40</div>
+<button onclick="add('Butter Naan',40)">Add</button>
+</div>
+
+</div>
 
 <script>
-const data={
-starters:[["Paneer Tikka",180],["Chicken 65",220]],
-main:[["Butter Chicken",320],["Veg Biryani",220]],
-drinks:[["Cold Coffee",120],["Mango Shake",140]],
-desserts:[["Ice Cream",80],["Brownie",120]]
-};
-
-function show(cat,btn){
+function filter(cat,btn){
 document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
 btn.classList.add("active");
 
-let html='<div class="products">';
-data[cat].forEach(i=>{
-html+=`
-<div class="card">
-<img src="coffee.png">
-<h3>${i[0]}</h3>
-<div class="price">₹${i[1]}</div>
-<button onclick="add('${i[0]}',${i[1]})">Add</button>
-</div>`;
+document.querySelectorAll(".card").forEach(c=>{
+if(cat==="all"||c.getAttribute("data")===cat){
+c.style.display="block";
+}else{
+c.style.display="none";
+}
 });
-html+='</div>';
-
-document.getElementById("menu").innerHTML=html;
 }
 
 function add(name,price){
@@ -126,8 +128,6 @@ cart.push({name,price,quantity:1});
 localStorage.setItem("cart",JSON.stringify(cart));
 alert("Added!");
 }
-
-show("starters",document.querySelector(".tabs button"));
 </script>
 
 </body>
