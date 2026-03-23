@@ -2,12 +2,13 @@
 <html>
 <head>
 <title>Spice Hub - Menu</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+*{box-sizing:border-box;}
 body{
 margin:0;
-font-family:'Poppins',sans-serif;
+font-family:Arial;
 background:#0d3b2e;
 color:white;
 }
@@ -16,28 +17,29 @@ color:white;
 .nav{
 display:flex;
 justify-content:space-between;
-padding:20px 50px;
+align-items:center;
+flex-wrap:wrap;
+padding:15px 20px;
 }
 
-.logo{
-font-size:26px;
-font-weight:700;
-}
+.logo{font-size:22px;}
 
-/* CATEGORY TABS */
+/* TABS */
 .tabs{
 display:flex;
 justify-content:center;
-margin:20px 0;
+flex-wrap:wrap;
+gap:10px;
+margin:20px;
 }
 
 .tabs button{
-margin:0 10px;
-padding:10px 25px;
+padding:8px 15px;
 border:none;
 border-radius:20px;
-cursor:pointer;
 background:white;
+cursor:pointer;
+font-size:12px;
 }
 
 .tabs .active{
@@ -49,38 +51,34 @@ color:white;
 .products{
 display:flex;
 overflow-x:auto;
-gap:20px;
-padding:20px;
+gap:15px;
+padding:15px;
+scroll-snap-type:x mandatory;
 }
 
 .card{
-min-width:220px;
+min-width:180px;
+flex:0 0 auto;
+scroll-snap-align:start;
 background:white;
 color:black;
-border-radius:20px;
+border-radius:15px;
 padding:15px;
 text-align:center;
-transition:0.3s;
-}
-
-.card:hover{
-transform:scale(1.1);
 }
 
 .card img{
-width:140px;
-height:140px;
-object-fit:cover;
+width:100%;
+height:auto;
 }
 
 .price{
 color:#1db954;
 font-weight:bold;
-margin:5px 0;
 }
 
 button.add{
-padding:8px 15px;
+padding:8px;
 border:none;
 background:#1db954;
 color:white;
@@ -88,8 +86,8 @@ border-radius:15px;
 cursor:pointer;
 }
 
-.added{
-background:green !important;
+@media(min-width:768px){
+.card{min-width:220px;}
 }
 </style>
 </head>
@@ -101,7 +99,6 @@ background:green !important;
 <div onclick="location.href='cart.html'">🛒 Cart</div>
 </div>
 
-<!-- CATEGORY -->
 <div class="tabs">
 <button class="active" onclick="showCategory('starters',this)">Starters</button>
 <button onclick="showCategory('main',this)">Main</button>
@@ -110,116 +107,34 @@ background:green !important;
 <button onclick="showCategory('breads',this)">Breads</button>
 </div>
 
-<!-- PRODUCTS -->
 <div id="menu"></div>
 
 <script>
-const imageMap = {
-"Paneer Tikka":"panneer.jpg",
-"Chicken 65":"c65.jpg",
-"Veg Spring Roll":"spring.jpg",
-"Gobi Manchurian":"gobi.jpg",
-"Fish Fingers":"fishfingers.jpg",
-
-"Butter Chicken":"butter.jpg",
-"Veg Biryani":"vegbiri.jpg",
-"Chicken Biryani":"chick.jpg",
-"Mutton Curry":"mutton.jpg",
-"Paneer Butter Masala":"panneerbutter.jpg",
-
-"Fresh Lime Soda":"lime.jpg",
-"Cold Coffee":"coldcoffee.jpg",
-"Mango Shake":"mango.jpg",
-"Masala Chai":"masala.jpg",
-"Mineral Water":"mineral.jpg",
-
-"Gulab Jamun":"gulabjamun.jpg",
-"Ice Cream":"icecream.jpg",
-"Chocolate Brownie":"brownie.jpg",
-"Fruit Salad":"fruitsalad.jpg",
-"Rasgulla":"rasagulla.jpg",
-
-"Butter Naan":"bnaan.jpg",
-"Garlic Naan":"gnaan.jpg",
-"Tandoori Roti":"troti.jpg",
-"Veg Combo":"veg combo.jpg",
-"Chicken Combo":"chickencombo.jpg"
+const data={
+starters:[["Paneer Tikka",180],["Chicken 65",220]],
+main:[["Butter Chicken",320],["Veg Biryani",220]],
+beverages:[["Cold Coffee",120],["Mango Shake",140]],
+desserts:[["Ice Cream",80],["Brownie",120]],
+breads:[["Butter Naan",40],["Garlic Naan",50]]
 };
 
-const data = {
-starters:[
-["Paneer Tikka",180],
-["Chicken 65",220],
-["Veg Spring Roll",150],
-["Gobi Manchurian",160],
-["Fish Fingers",240]
-],
-main:[
-["Butter Chicken",320],
-["Veg Biryani",220],
-["Chicken Biryani",280],
-["Mutton Curry",350],
-["Paneer Butter Masala",250]
-],
-beverages:[
-["Fresh Lime Soda",60],
-["Cold Coffee",120],
-["Mango Shake",140],
-["Masala Chai",40],
-["Mineral Water",20]
-],
-desserts:[
-["Gulab Jamun",90],
-["Ice Cream",80],
-["Chocolate Brownie",120],
-["Fruit Salad",100],
-["Rasgulla",90]
-],
-breads:[
-["Butter Naan",40],
-["Garlic Naan",50],
-["Tandoori Roti",30],
-["Veg Combo",299],
-["Chicken Combo",399]
-]
-};
-
-function showCategory(category,btn){
+function showCategory(cat,btn){
 document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
 btn.classList.add("active");
 
-let html = `<div class="products">`;
-
-data[category].forEach(item=>{
-html += `
-<div class="card">
-<img src="${imageMap[item[0]]}">
-<h3>${item[0]}</h3>
-<div class="price">₹${item[1]}</div>
-<button class="add" onclick="addToCart(this,'${item[0]}',${item[1]})">Add</button>
-</div>
-`;
+let html='<div class="products">';
+data[cat].forEach(i=>{
+html+=`<div class="card">
+<h3>${i[0]}</h3>
+<div class="price">₹${i[1]}</div>
+<button class="add">Add</button>
+</div>`;
 });
+html+='</div>';
 
-html += `</div>`;
-document.getElementById("menu").innerHTML = html;
+document.getElementById("menu").innerHTML=html;
 }
 
-function addToCart(btn,name,price){
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-let existing = cart.find(i=>i.name===name);
-if(existing){ existing.quantity += 1; }
-else{ cart.push({name,price,quantity:1}); }
-
-localStorage.setItem("cart",JSON.stringify(cart));
-
-btn.innerText="✓ Added";
-btn.classList.add("added");
-btn.disabled=true;
-}
-
-// default load
 showCategory("starters",document.querySelector(".tabs button"));
 </script>
 
