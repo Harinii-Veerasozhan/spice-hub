@@ -8,7 +8,10 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins';}
-body{background:#0c3b2e;color:white;}
+body{
+background:#0c3b2e;
+color:white;
+}
 
 /* NAV */
 .nav{
@@ -16,8 +19,9 @@ display:flex;
 justify-content:space-between;
 padding:15px 25px;
 align-items:center;
+background:#083024;
+box-shadow:0 4px 10px rgba(0,0,0,0.4);
 }
-.nav a{color:white;text-decoration:none;margin:0 10px;}
 
 /* SECTION */
 .section{
@@ -26,6 +30,7 @@ padding:30px 20px;
 .section h2{
 margin-bottom:20px;
 font-size:26px;
+color:#1db954;
 }
 
 /* GRID */
@@ -37,19 +42,30 @@ gap:20px;
 
 /* CARD */
 .card{
-background:white;
-color:black;
+background:#083024;
 border-radius:20px;
 padding:15px;
 text-align:center;
 transition:0.3s;
+box-shadow:0 0 15px rgba(0,0,0,0.5);
 }
-.card:hover{transform:scale(1.05);}
+
+.card:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px #1db954;
+}
+
 .card img{
 width:100%;
 height:150px;
 object-fit:cover;
-border-radius:10px;
+border-radius:12px;
+}
+
+/* TEXT */
+.card h3{
+margin-top:10px;
+color:white;
 }
 
 .price{
@@ -58,13 +74,20 @@ font-weight:bold;
 margin:5px 0;
 }
 
+/* BUTTON */
 button{
-padding:8px 15px;
+padding:10px 20px;
 border:none;
-background:#1db954;
+background:linear-gradient(45deg,#1db954,#17a44a);
 color:white;
-border-radius:20px;
+border-radius:25px;
 cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+box-shadow:0 0 10px #1db954;
 }
 
 /* CONTACT */
@@ -73,6 +96,16 @@ background:#083024;
 padding:30px;
 text-align:center;
 margin-top:40px;
+border-top:1px solid rgba(255,255,255,0.1);
+}
+.contact h3{
+color:#1db954;
+margin-bottom:10px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+.section{padding:20px 15px;}
 }
 </style>
 </head>
@@ -82,7 +115,7 @@ margin-top:40px;
 <!-- NAV -->
 <div class="nav">
 <h2>🍽️ Spice Hub</h2>
-<div onclick="location.href='cart.html'">🛒 Cart</div>
+<div onclick="location.href='cart.html'" style="cursor:pointer;">🛒 Cart</div>
 </div>
 
 <!-- STARTERS -->
