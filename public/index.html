@@ -17,9 +17,10 @@ font-family:'Poppins',sans-serif;
 body{
 background:#0b3d2e;
 color:white;
+overflow-x:hidden;
 }
 
-/* NAV */
+/* NAVBAR */
 .nav{
 display:flex;
 justify-content:space-between;
@@ -28,23 +29,27 @@ padding:20px;
 }
 
 .logo{
-font-size:20px;
+font-size:22px;
 font-weight:700;
 }
 
 .nav-icons span{
 margin-left:15px;
-cursor:pointer;
 font-size:20px;
+cursor:pointer;
 }
 
-/* HERO */
+/* HERO SECTION */
 .hero{
+background:#0f4a39;
+margin:10px;
+border-radius:25px;
+padding:30px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:30px 20px;
 flex-wrap:wrap;
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
 
 .hero-text{
@@ -52,20 +57,20 @@ max-width:400px;
 }
 
 .hero-text h1{
-font-size:52px;
+font-size:55px;
 font-weight:900;
 line-height:1.1;
 }
 
 .hero-text p{
 margin:15px 0;
-color:#ccc;
+color:#dcdcdc;
 }
 
 .hero-text button{
 padding:12px 30px;
 border:none;
-border-radius:25px;
+border-radius:30px;
 background:#1db954;
 color:white;
 font-size:16px;
@@ -73,11 +78,11 @@ cursor:pointer;
 }
 
 .hero-img img{
-width:260px;
-border-radius:20px;
+width:280px;
+filter:drop-shadow(0 10px 20px rgba(0,0,0,0.5));
 }
 
-/* CATEGORY */
+/* CATEGORY SECTION */
 .categories{
 display:flex;
 gap:10px;
@@ -99,16 +104,25 @@ background:#1db954;
 color:white;
 }
 
-/* SCROLL */
+/* MENU SECTION CARD BLOCK */
+.menu-section{
+background:#0f4a39;
+margin:15px;
+border-radius:25px;
+padding:20px;
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* SCROLL ITEMS */
 .scroll{
 display:flex;
 gap:15px;
-padding:20px;
 overflow-x:auto;
+padding-top:10px;
 }
 
 .card{
-min-width:160px;
+min-width:170px;
 background:white;
 color:black;
 border-radius:20px;
@@ -118,7 +132,7 @@ text-align:center;
 
 .card img{
 width:100%;
-height:110px;
+height:120px;
 object-fit:cover;
 border-radius:12px;
 }
@@ -131,14 +145,18 @@ font-weight:bold;
 /* BANNER */
 .banner{
 text-align:center;
-font-size:30px;
+font-size:32px;
 font-weight:900;
 margin:30px 0;
 }
 
 /* POPULAR */
 .popular{
+background:#0f4a39;
+margin:15px;
 padding:20px;
+border-radius:25px;
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
 .popular-items{
@@ -151,9 +169,11 @@ justify-content:center;
 /* CONTACT */
 .contact{
 background:#06281e;
-padding:25px;
+padding:30px;
 text-align:center;
-margin-top:30px;
+margin-top:20px;
+border-top-left-radius:20px;
+border-top-right-radius:20px;
 }
 
 /* MOBILE */
@@ -162,11 +182,12 @@ margin-top:30px;
 flex-direction:column;
 text-align:center;
 }
-.hero-img img{
-margin-top:20px;
-}
 .hero-text h1{
 font-size:36px;
+}
+.hero-img img{
+margin-top:20px;
+width:220px;
 }
 }
 </style>
@@ -192,21 +213,23 @@ font-size:36px;
 </div>
 
 <div class="hero-img">
-<img src="coffee.jpg"> <!-- MAIN IMAGE -->
+<img src="coffee.jpg">
 </div>
 </div>
 
 <!-- CATEGORY -->
 <div class="categories">
 <button class="active">Drinks</button>
-<button>Special</button>
 <button>Hot</button>
 <button>Cold</button>
+<button>Special</button>
 </div>
 
-<!-- SCROLL ITEMS -->
-<div class="scroll">
+<!-- DRINKS SECTION -->
+<div class="menu-section">
+<h2>Drinks</h2>
 
+<div class="scroll">
 <div class="card">
 <img src="mocha.jpg">
 <h4>Mocha</h4>
@@ -215,13 +238,13 @@ font-size:36px;
 
 <div class="card">
 <img src="caramel.jpg">
-<h4>Caramel Coffee</h4>
+<h4>Caramel</h4>
 <div class="price">₹200</div>
 </div>
 
 <div class="card">
 <img src="hazel.jpg">
-<h4>Hazelnut Latte</h4>
+<h4>Hazelnut</h4>
 <div class="price">₹190</div>
 </div>
 
@@ -229,6 +252,7 @@ font-size:36px;
 <img src="masala.jpg">
 <h4>Masala Tea</h4>
 <div class="price">₹80</div>
+</div>
 </div>
 
 </div>
@@ -238,7 +262,7 @@ font-size:36px;
 
 <!-- POPULAR -->
 <div class="popular">
-<h2>POPULAR</h2>
+<h2>Popular</h2>
 
 <div class="popular-items">
 <div class="card">
@@ -256,6 +280,7 @@ font-size:36px;
 <h4>Hazelnut Classic</h4>
 </div>
 </div>
+
 </div>
 
 <!-- CONTACT -->
