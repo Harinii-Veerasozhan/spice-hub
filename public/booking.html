@@ -1,317 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Spice Hub - Table Booking</title>
+<title>Booking - Spice Hub</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-/* BACKGROUND */
 body{
-background:
-linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
-url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80');
-background-size:cover;
-background-position:center;
-min-height:100vh;
+background:#0c3b2e;
+color:white;
+font-family:'Poppins';
 display:flex;
 flex-direction:column;
 align-items:center;
-overflow-x:hidden;
 }
 
-/* PARTICLES */
-.particle{
-position:absolute;
-width:6px;
-height:6px;
-background:#ff3c00;
-border-radius:50%;
-opacity:0.6;
-animation:float 10s linear infinite;
-}
-
-@keyframes float{
-0%{transform:translateY(100vh) scale(0);}
-100%{transform:translateY(-10vh) scale(1);}
-}
-
-/* HEADER */
-.header{
-width:100%;
-text-align:center;
-padding:60px 20px 10px;
-color:white;
-animation:fadeDown 1.2s ease;
-}
-
-.header h1{
-font-size:clamp(28px,5vw,44px);
-color:#ff3c00;
-letter-spacing:2px;
-margin-bottom:10px;
-}
-
-.header p{
-max-width:700px;
-margin:auto;
-font-size:clamp(13px,2.5vw,16px);
-color:#eee;
-line-height:1.6;
-}
-
-.tagline{
-margin-top:10px;
-font-size:clamp(12px,2vw,14px);
-color:#ff9800;
-}
-
-/* BACK BUTTON */
-.back-arrow{
-position:absolute;
-left:15px;
-top:25px;
-font-size:24px;
-color:white;
-cursor:pointer;
-}
-
-/* BOOKING BOX */
-.booking-container{
-margin-top:20px;
-background:rgba(0,0,0,0.85);
-backdrop-filter:blur(8px);
-padding:20px;
-border-radius:15px;
+.container{
+background:#083024;
+padding:30px;
+border-radius:20px;
+margin-top:50px;
 width:90%;
-max-width:420px;
-color:white;
-box-shadow:0 0 25px rgba(255,60,0,0.4);
-border:1px solid #ff3c00;
-animation:fadeUp 1.2s ease;
+max-width:400px;
+box-shadow:0 0 20px rgba(0,0,0,0.5);
 }
 
 h2{
+color:#1db954;
 text-align:center;
-margin-bottom:15px;
-font-size:20px;
-color:#ff3c00;
-}
-
-/* FORM */
-table{
-width:100%;
-}
-
-td{
-display:block;
-width:100%;
-font-size:14px;
-margin-bottom:5px;
 }
 
 input,select{
 width:100%;
 padding:10px;
-margin-bottom:10px;
-border-radius:6px;
+margin:10px 0;
+border-radius:10px;
 border:none;
-background:#1a1a1a;
+background:#111;
 color:white;
-border:1px solid #333;
 }
 
-input:focus,select:focus{
-border:1px solid #ff3c00;
-box-shadow:0 0 8px #ff3c00;
-}
-
-/* BUTTON */
-.btn{
-background:linear-gradient(45deg,#ff3c00,#ff7300);
-color:white;
-padding:12px;
+button{
 width:100%;
+padding:12px;
+background:linear-gradient(45deg,#1db954,#17a44a);
 border:none;
+color:white;
 border-radius:20px;
-font-size:15px;
 cursor:pointer;
 }
 
-.btn:hover{
+button:hover{
 transform:scale(1.05);
-box-shadow:0 0 12px #ff3c00;
+box-shadow:0 0 10px #1db954;
 }
 
-/* POPUP */
 .popup{
 position:fixed;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%) scale(0);
-background:white;
+background:#083024;
 padding:30px;
 border-radius:15px;
 text-align:center;
 transition:0.3s;
-z-index:10;
 }
 
 .popup.active{
 transform:translate(-50%,-50%) scale(1);
 }
 
-.popup h3{
-color:green;
-margin-bottom:10px;
-}
-
-.close-btn{
-margin-top:15px;
-padding:10px 20px;
-background:#ff9800;
-border:none;
-border-radius:6px;
-cursor:pointer;
-color:white;
-}
-
-/* OVERLAY */
 .overlay{
 position:fixed;
 width:100%;
 height:100%;
 background:rgba(0,0,0,0.6);
-top:0;
-left:0;
 display:none;
 }
-
-.overlay.active{
-display:block;
-}
-
-/* ANIMATIONS */
-@keyframes fadeDown{
-from{opacity:0;transform:translateY(-40px);}
-to{opacity:1;transform:translateY(0);}
-}
-
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(40px);}
-to{opacity:1;transform:translateY(0);}
-}
+.overlay.active{display:block;}
 </style>
 </head>
 
 <body>
 
-<div class="back-arrow" onclick="goBack()">⬅</div>
+<div class="container">
+<h2>Reserve Table</h2>
 
-<div class="header">
-<h1>Spice Hub</h1>
-<p>Reserve your table and enjoy a luxurious dining experience.</p>
-<div class="tagline">✨ Fine Dining • Authentic Taste ✨</div>
-</div>
+<form id="form">
+<input placeholder="Name" required>
+<input placeholder="Email" required>
+<input placeholder="Phone" required>
+<input type="date" required>
+<input type="time" required>
 
-<div class="booking-container">
-<h2>Reserve Your Table</h2>
-
-<form id="bookingForm">
-<table>
-<tr>
-<td>Full Name</td>
-<td><input type="text" required></td>
-</tr>
-<tr>
-<td>Email</td>
-<td><input type="email" required></td>
-</tr>
-<tr>
-<td>Phone</td>
-<td><input type="tel" required></td>
-</tr>
-<tr>
-<td>Date</td>
-<td><input type="date" required></td>
-</tr>
-<tr>
-<td>Time</td>
-<td><input type="time" required></td>
-</tr>
-<tr>
-<td>Guests</td>
-<td>
 <select required>
-<option value="">Select</option>
+<option value="">Guests</option>
 <option>1</option>
 <option>2</option>
 <option>3</option>
 <option>4</option>
 <option>5+</option>
 </select>
-</td>
-</tr>
-<tr>
-<td colspan="2">
-<button type="submit" class="btn">Book Now</button>
-</td>
-</tr>
-</table>
+
+<button>Book Now</button>
 </form>
 </div>
 
 <div class="overlay" id="overlay"></div>
 
 <div class="popup" id="popup">
-<h3>🎉 Booking Confirmed!</h3>
-<p>Your table is reserved.</p>
-<button class="close-btn" onclick="closePopup()">Close</button>
+<h3>🎉 Booking Confirmed</h3>
+<button onclick="closePopup()">Close</button>
 </div>
 
 <script>
-
-/* PARTICLES */
-for(let i=0;i<20;i++){
-let p=document.createElement("div");
-p.className="particle";
-p.style.left=Math.random()*100+"%";
-p.style.animationDuration=(6+Math.random()*5)+"s";
-document.body.appendChild(p);
-}
-
-/* FORM */
-const form=document.getElementById("bookingForm");
+const form=document.getElementById("form");
 const popup=document.getElementById("popup");
 const overlay=document.getElementById("overlay");
 
-form.addEventListener("submit",function(e){
+form.addEventListener("submit",e=>{
 e.preventDefault();
-
 popup.classList.add("active");
 overlay.classList.add("active");
 
 confetti({particleCount:200,spread:100});
-
-form.reset();
 });
 
 function closePopup(){
 popup.classList.remove("active");
 overlay.classList.remove("active");
-}
-
-function goBack(){
-window.location.href="index.html";
 }
 </script>
 
