@@ -15,13 +15,12 @@ box-sizing:border-box;
 font-family:'Poppins',sans-serif;
 }
 
-/* Background */
+/* BACKGROUND */
 body{
 background:
 linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
 url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80');
 background-size:cover;
-backface-visibility: calc(80);
 background-position:center;
 min-height:100vh;
 display:flex;
@@ -30,7 +29,7 @@ align-items:center;
 overflow-x:hidden;
 }
 
-/* Floating Particles */
+/* PARTICLES */
 .particle{
 position:absolute;
 width:6px;
@@ -46,17 +45,17 @@ animation:float 10s linear infinite;
 100%{transform:translateY(-10vh) scale(1);}
 }
 
-/* Header */
+/* HEADER */
 .header{
 width:100%;
 text-align:center;
 padding:60px 20px 10px;
 color:white;
-animation:fadeDown 1.5s ease;
+animation:fadeDown 1.2s ease;
 }
 
 .header h1{
-font-size:44px;
+font-size:clamp(28px,5vw,44px);
 color:#ff3c00;
 letter-spacing:2px;
 margin-bottom:10px;
@@ -65,68 +64,70 @@ margin-bottom:10px;
 .header p{
 max-width:700px;
 margin:auto;
-font-size:16px;
+font-size:clamp(13px,2.5vw,16px);
 color:#eee;
 line-height:1.6;
 }
 
 .tagline{
 margin-top:10px;
-font-size:14px;
+font-size:clamp(12px,2vw,14px);
 color:#ff9800;
-letter-spacing:1px;
 }
 
-/* Back Arrow */
+/* BACK BUTTON */
 .back-arrow{
 position:absolute;
-left:25px;
-top:35px;
-font-size:26px;
+left:15px;
+top:25px;
+font-size:24px;
 color:white;
 cursor:pointer;
 }
 
-/* Booking Box */
+/* BOOKING BOX */
 .booking-container{
-margin-top:30px;
+margin-top:20px;
 background:rgba(0,0,0,0.85);
 backdrop-filter:blur(8px);
-padding:30px;
-border-radius:20px;
-width:430px;
+padding:20px;
+border-radius:15px;
+width:90%;
+max-width:420px;
 color:white;
-box-shadow:0 0 30px rgba(255,60,0,0.5);
+box-shadow:0 0 25px rgba(255,60,0,0.4);
 border:1px solid #ff3c00;
-animation:fadeUp 1.5s ease;
+animation:fadeUp 1.2s ease;
 }
 
 h2{
 text-align:center;
-margin-bottom:20px;
-font-size:22px;
+margin-bottom:15px;
+font-size:20px;
 color:#ff3c00;
 }
 
+/* FORM */
 table{
 width:100%;
-border-spacing:14px;
 }
 
 td{
+display:block;
+width:100%;
 font-size:14px;
+margin-bottom:5px;
 }
 
 input,select{
 width:100%;
-padding:8px;
+padding:10px;
+margin-bottom:10px;
 border-radius:6px;
 border:none;
-outline:none;
 background:#1a1a1a;
 color:white;
 border:1px solid #333;
-transition:0.3s;
 }
 
 input:focus,select:focus{
@@ -134,16 +135,16 @@ border:1px solid #ff3c00;
 box-shadow:0 0 8px #ff3c00;
 }
 
+/* BUTTON */
 .btn{
 background:linear-gradient(45deg,#ff3c00,#ff7300);
 color:white;
-padding:10px;
+padding:12px;
 width:100%;
 border:none;
 border-radius:20px;
 font-size:15px;
 cursor:pointer;
-transition:0.3s;
 }
 
 .btn:hover{
@@ -151,29 +152,17 @@ transform:scale(1.05);
 box-shadow:0 0 12px #ff3c00;
 }
 
-/* Animations */
-@keyframes fadeDown{
-from{opacity:0;transform:translateY(-40px);}
-to{opacity:1;transform:translateY(0);}
-}
-
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(40px);}
-to{opacity:1;transform:translateY(0);}
-}
-
-/* Popup (UNCHANGED CELEBRATION) */
+/* POPUP */
 .popup{
 position:fixed;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%) scale(0);
 background:white;
-padding:40px;
+padding:30px;
 border-radius:15px;
 text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,0.5);
-transition:0.4s ease-in-out;
+transition:0.3s;
 z-index:10;
 }
 
@@ -183,11 +172,11 @@ transform:translate(-50%,-50%) scale(1);
 
 .popup h3{
 color:green;
-margin-bottom:15px;
+margin-bottom:10px;
 }
 
 .close-btn{
-margin-top:20px;
+margin-top:15px;
 padding:10px 20px;
 background:#ff9800;
 border:none;
@@ -196,6 +185,7 @@ cursor:pointer;
 color:white;
 }
 
+/* OVERLAY */
 .overlay{
 position:fixed;
 width:100%;
@@ -210,104 +200,28 @@ display:none;
 display:block;
 }
 
-@media(max-width:500px){
-.booking-container{
-width:90%;
-padding:20px;
-}
-.header h1{
-font-size:28px;
-}
-}
-  /* MOBILE RESPONSIVE VIEW */
-
-.nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 60px;
-color:white;
+/* ANIMATIONS */
+@keyframes fadeDown{
+from{opacity:0;transform:translateY(-40px);}
+to{opacity:1;transform:translateY(0);}
 }
 
-.nav-links{
-display:flex;
-gap:25px;
-}
-
-.nav-links div{
-color:white;
-cursor:pointer;
-font-weight:500;
-}
-
-@media(max-width:768px){
-
-.nav{
-flex-direction:row;
-padding:20px;
-}
-
-.nav-links{
-gap:15px;
-font-size:14px;
-}
-
-}
-
-.hero h1{
-font-size:40px;
-}
-
-.hero p{
-font-size:16px;
-}
-
-.features{
-flex-direction:column;
-gap:20px;
-}
-
-.menu-container{
-grid-template-columns:1fr;
-padding:20px;
-}
-
-.booking-container{
-width:90%;
-}
-
-button{
-width:80%;
-}
-
-input,select{
-width:90%;
-}
-
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(40px);}
+to{opacity:1;transform:translateY(0);}
 }
 </style>
 </head>
+
 <body>
-<div class="nav-links">
 
-<div onclick="location.href='index.html'">Home</div>
-<div onclick="location.href='menu.html'">Menu</div>
-<div onclick="location.href='booking.html'">Book Table</div>
-<div onclick="location.href='cart.html'">Cart</div>
-
-</div>
-
-</div>
 <div class="back-arrow" onclick="goBack()">⬅</div>
 
 <div class="header">
 <h1>Spice Hub</h1>
-<p>Step into a world of rich aromas, vibrant spices, and unforgettable flavors. Reserve your table and enjoy a luxurious dining experience crafted with passion.</p>
-<div class="tagline">✨ Fine Dining • Authentic Taste • Cozy Ambience ✨</div>
+<p>Reserve your table and enjoy a luxurious dining experience.</p>
+<div class="tagline">✨ Fine Dining • Authentic Taste ✨</div>
 </div>
-  <div class="nav">
-
-<div class="logo">Spice Hub</div>
 
 <div class="booking-container">
 <h2>Reserve Your Table</h2>
@@ -323,19 +237,19 @@ width:90%;
 <td><input type="email" required></td>
 </tr>
 <tr>
-<td>Phone Number</td>
+<td>Phone</td>
 <td><input type="tel" required></td>
 </tr>
 <tr>
-<td>Booking Date</td>
+<td>Date</td>
 <td><input type="date" required></td>
 </tr>
 <tr>
-<td>Booking Time</td>
+<td>Time</td>
 <td><input type="time" required></td>
 </tr>
 <tr>
-<td>Number of Guests</td>
+<td>Guests</td>
 <td>
 <select required>
 <option value="">Select</option>
@@ -343,8 +257,7 @@ width:90%;
 <option>2</option>
 <option>3</option>
 <option>4</option>
-<option>5</option>
-<option>6+</option>
+<option>5+</option>
 </select>
 </td>
 </tr>
@@ -360,23 +273,23 @@ width:90%;
 <div class="overlay" id="overlay"></div>
 
 <div class="popup" id="popup">
-<h3>🎉 Booking Confirmed! 🎉</h3>
-<p>Your table has been successfully reserved.</p>
+<h3>🎉 Booking Confirmed!</h3>
+<p>Your table is reserved.</p>
 <button class="close-btn" onclick="closePopup()">Close</button>
 </div>
 
 <script>
 
-/* Floating particles generator */
-for(let i=0;i<25;i++){
-let particle=document.createElement("div");
-particle.classList.add("particle");
-particle.style.left=Math.random()*100+"%";
-particle.style.animationDuration=(6+Math.random()*6)+"s";
-particle.style.opacity=Math.random();
-document.body.appendChild(particle);
+/* PARTICLES */
+for(let i=0;i<20;i++){
+let p=document.createElement("div");
+p.className="particle";
+p.style.left=Math.random()*100+"%";
+p.style.animationDuration=(6+Math.random()*5)+"s";
+document.body.appendChild(p);
 }
 
+/* FORM */
 const form=document.getElementById("bookingForm");
 const popup=document.getElementById("popup");
 const overlay=document.getElementById("overlay");
@@ -387,11 +300,7 @@ e.preventDefault();
 popup.classList.add("active");
 overlay.classList.add("active");
 
-confetti({
-particleCount:200,
-spread:100,
-origin:{y:0.6}
-});
+confetti({particleCount:200,spread:100});
 
 form.reset();
 });
