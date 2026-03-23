@@ -6,56 +6,78 @@
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+
 <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins';}
+
+/* BACKGROUND IMAGE */
 body{
-background:#0c3b2e;
-color:white;
-font-family:'Poppins';
+background:
+linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+url('index.jpg'); /* 🔥 use your image here */
+background-size:cover;
+background-position:center;
+min-height:100vh;
 display:flex;
-flex-direction:column;
+justify-content:center;
 align-items:center;
+color:white;
 }
 
+/* CONTAINER */
 .container{
-background:#083024;
+background:rgba(8,48,36,0.9);
 padding:30px;
 border-radius:20px;
-margin-top:50px;
 width:90%;
-max-width:400px;
-box-shadow:0 0 20px rgba(0,0,0,0.5);
+max-width:420px;
+box-shadow:0 0 25px rgba(0,0,0,0.6);
+backdrop-filter:blur(6px);
 }
 
+/* TITLE */
 h2{
 color:#1db954;
 text-align:center;
+margin-bottom:20px;
 }
 
+/* INPUTS */
 input,select{
 width:100%;
-padding:10px;
+padding:12px;
 margin:10px 0;
 border-radius:10px;
 border:none;
 background:#111;
 color:white;
+outline:none;
 }
 
+input:focus,select:focus{
+border:1px solid #1db954;
+box-shadow:0 0 8px #1db954;
+}
+
+/* BUTTON */
 button{
 width:100%;
 padding:12px;
 background:linear-gradient(45deg,#1db954,#17a44a);
 border:none;
 color:white;
-border-radius:20px;
+border-radius:25px;
 cursor:pointer;
+transition:0.3s;
 }
 
 button:hover{
 transform:scale(1.05);
-box-shadow:0 0 10px #1db954;
+box-shadow:0 0 12px #1db954;
 }
 
+/* POPUP */
 .popup{
 position:fixed;
 top:50%;
@@ -66,32 +88,39 @@ padding:30px;
 border-radius:15px;
 text-align:center;
 transition:0.3s;
+z-index:10;
 }
 
 .popup.active{
 transform:translate(-50%,-50%) scale(1);
 }
 
+/* OVERLAY */
 .overlay{
 position:fixed;
 width:100%;
 height:100%;
 background:rgba(0,0,0,0.6);
+top:0;
+left:0;
 display:none;
 }
-.overlay.active{display:block;}
+
+.overlay.active{
+display:block;
+}
 </style>
 </head>
 
 <body>
 
 <div class="container">
-<h2>Reserve Table</h2>
+<h2>Reserve Your Table</h2>
 
 <form id="form">
-<input placeholder="Name" required>
-<input placeholder="Email" required>
-<input placeholder="Phone" required>
+<input placeholder="Full Name" required>
+<input type="email" placeholder="Email" required>
+<input placeholder="Phone Number" required>
 <input type="date" required>
 <input type="time" required>
 
@@ -112,6 +141,7 @@ display:none;
 
 <div class="popup" id="popup">
 <h3>🎉 Booking Confirmed</h3>
+<p>Your table is reserved!</p>
 <button onclick="closePopup()">Close</button>
 </div>
 
@@ -122,10 +152,17 @@ const overlay=document.getElementById("overlay");
 
 form.addEventListener("submit",e=>{
 e.preventDefault();
+
 popup.classList.add("active");
 overlay.classList.add("active");
 
-confetti({particleCount:200,spread:100});
+confetti({
+particleCount:200,
+spread:100,
+origin:{y:0.6}
+});
+
+form.reset();
 });
 
 function closePopup(){
