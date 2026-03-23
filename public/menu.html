@@ -5,222 +5,116 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 
 <style>
-
 body{
 margin:0;
 font-family:'Poppins',sans-serif;
-background:url('index.jpg') no-repeat center center fixed;
-background-size:cover;
+background:#0d3b2e;
 color:white;
 }
 
-.overlay{
-background:rgba(0,0,0,0.85);
-min-height:100vh;
-}
-
-/* NAVBAR */
-
+/* NAV */
 .nav{
 display:flex;
 justify-content:space-between;
-align-items:center;
-padding:20px 60px;
-color:white;
+padding:20px 50px;
 }
 
 .logo{
-font-size:28px;
+font-size:26px;
 font-weight:700;
-letter-spacing:2px;
 }
 
-.nav-links{
+/* CATEGORY TABS */
+.tabs{
 display:flex;
-gap:25px;
+justify-content:center;
+margin:20px 0;
 }
 
-.nav-links div{
-color:white;
+.tabs button{
+margin:0 10px;
+padding:10px 25px;
+border:none;
+border-radius:20px;
 cursor:pointer;
-font-weight:500;
+background:white;
 }
 
-.nav-links div:hover{
-color:#ff512f;
+.tabs .active{
+background:#1db954;
+color:white;
 }
 
-/* MOBILE NAV */
-
-@media(max-width:768px){
-
-.nav{
+/* PRODUCTS */
+.products{
+display:flex;
+overflow-x:auto;
+gap:20px;
 padding:20px;
 }
 
-.nav-links{
-gap:15px;
-font-size:14px;
-}
-
-}
-
-/* SIDEBAR */
-
-.sidebar{
-position:fixed;
-left:-250px;
-top:0;
-width:250px;
-height:100%;
-background:rgba(0,0,0,0.95);
-padding-top:80px;
-transition:0.4s;
-z-index:1000;
-}
-
-.sidebar a{
-display:block;
-padding:15px 25px;
-color:white;
-text-decoration:none;
+.card{
+min-width:220px;
+background:white;
+color:black;
+border-radius:20px;
+padding:15px;
+text-align:center;
 transition:0.3s;
 }
 
-.sidebar a:hover{
-background:linear-gradient(45deg,#ff512f,#dd2476);
+.card:hover{
+transform:scale(1.1);
 }
 
-.sidebar.active{
-left:0;
-}
-
-/* MENU TITLE */
-
-.menu-title{
-text-align:center;
-font-size:50px;
-font-weight:900;
-margin-top:10px;
-}
-
-/* CATEGORY TITLE */
-
-.category-title{
-font-size:32px;
-margin:40px 60px 10px;
-color:#ff512f;
-font-weight:700;
-}
-
-/* MENU GRID */
-
-.menu-container{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:30px;
-padding:20px 60px;
-}
-
-/* MOBILE MENU GRID */
-
-@media(max-width:768px){
-
-.menu-container{
-grid-template-columns:repeat(2,1fr);
-gap:15px;
-padding:20px;
-}
-
-.menu-title{
-font-size:32px;
-}
-
-.category-title{
-margin:30px 20px 10px;
-font-size:24px;
-}
-
-}
-
-/* MENU CARD */
-
-.menu-card{
-background:rgba(0,0,0,0.8);
-border-radius:15px;
-overflow:hidden;
-transition:0.4s;
-box-shadow:0 0 20px rgba(255,0,0,0.2);
-}
-
-.menu-card:hover{
-transform:translateY(-10px) scale(1.03);
-box-shadow:0 0 25px rgba(255,0,0,0.6);
-}
-
-.menu-card img{
-width:100%;
-height:180px;
+.card img{
+width:140px;
+height:140px;
 object-fit:cover;
 }
 
-.menu-content{
-padding:15px;
-text-align:center;
-}
-
 .price{
-color:#ff512f;
-font-weight:600;
+color:#1db954;
+font-weight:bold;
 margin:5px 0;
 }
 
-button{
-padding:10px 25px;
+button.add{
+padding:8px 15px;
 border:none;
-border-radius:25px;
-background:linear-gradient(45deg,#ff512f,#dd2476);
+background:#1db954;
 color:white;
-font-size:14px;
+border-radius:15px;
 cursor:pointer;
-transition:0.3s;
-}
-
-button:hover{
-transform:scale(1.1);
-box-shadow:0 0 15px rgba(255,255,255,0.4);
 }
 
 .added{
 background:green !important;
 }
-
 </style>
 </head>
 
 <body>
 
 <div class="nav">
-
 <div class="logo">Spice Hub</div>
-
-<div class="nav-links">
-<div onclick="location.href='index.html'">Home</div>
-<div onclick="location.href='menu.html'">Menu</div>
-<div onclick="location.href='booking.html'">Book Table</div>
-<div onclick="location.href='cart.html'">Cart</div>
+<div onclick="location.href='cart.html'">🛒 Cart</div>
 </div>
 
+<!-- CATEGORY -->
+<div class="tabs">
+<button class="active" onclick="showCategory('starters',this)">Starters</button>
+<button onclick="showCategory('main',this)">Main</button>
+<button onclick="showCategory('beverages',this)">Drinks</button>
+<button onclick="showCategory('desserts',this)">Desserts</button>
+<button onclick="showCategory('breads',this)">Breads</button>
 </div>
 
-<div class="overlay">
-
-<h1 class="menu-title">Our Premium Menu</h1>
+<!-- PRODUCTS -->
+<div id="menu"></div>
 
 <script>
-
 const imageMap = {
-
 "Paneer Tikka":"panneer.jpg",
 "Chicken 65":"c65.jpg",
 "Veg Spring Roll":"spring.jpg",
@@ -250,118 +144,84 @@ const imageMap = {
 "Tandoori Roti":"troti.jpg",
 "Veg Combo":"veg combo.jpg",
 "Chicken Combo":"chickencombo.jpg"
-
 };
 
-</script>
-
-<script>
-
-function renderCategory(title,id,items){
-
-document.write(`<h2 class="category-title" id="${id}">${title}</h2>`);
-document.write(`<div class="menu-container">`);
-
-items.forEach(item=>{
-
-document.write(`
-<div class="menu-card">
-<img src="${imageMap[item[0]]}" alt="${item[0]}">
-<div class="menu-content">
-<h3>${item[0]}</h3>
-<div class="price">₹${item[1]}</div>
-<button onclick="addToCart(this)">Add to Cart</button>
-</div>
-</div>
-`);
-
-});
-
-document.write(`</div>`);
-
-}
-
-renderCategory("Starters","starters",[
-
+const data = {
+starters:[
 ["Paneer Tikka",180],
 ["Chicken 65",220],
 ["Veg Spring Roll",150],
 ["Gobi Manchurian",160],
 ["Fish Fingers",240]
-
-]);
-
-renderCategory("Main Course","maincourse",[
-
+],
+main:[
 ["Butter Chicken",320],
 ["Veg Biryani",220],
 ["Chicken Biryani",280],
 ["Mutton Curry",350],
 ["Paneer Butter Masala",250]
-
-]);
-
-renderCategory("Beverages","beverages",[
-
+],
+beverages:[
 ["Fresh Lime Soda",60],
 ["Cold Coffee",120],
 ["Mango Shake",140],
 ["Masala Chai",40],
 ["Mineral Water",20]
-
-]);
-
-renderCategory("Desserts","desserts",[
-
+],
+desserts:[
 ["Gulab Jamun",90],
 ["Ice Cream",80],
 ["Chocolate Brownie",120],
 ["Fruit Salad",100],
 ["Rasgulla",90]
-
-]);
-
-renderCategory("Breads","breads",[
-
+],
+breads:[
 ["Butter Naan",40],
 ["Garlic Naan",50],
 ["Tandoori Roti",30],
 ["Veg Combo",299],
 ["Chicken Combo",399]
+]
+};
 
-]);
+function showCategory(category,btn){
+document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
 
-function addToCart(btn){
+let html = `<div class="products">`;
 
-const card = btn.closest(".menu-card");
+data[category].forEach(item=>{
+html += `
+<div class="card">
+<img src="${imageMap[item[0]]}">
+<h3>${item[0]}</h3>
+<div class="price">₹${item[1]}</div>
+<button class="add" onclick="addToCart(this,'${item[0]}',${item[1]})">Add</button>
+</div>
+`;
+});
 
-const name = card.querySelector("h3").innerText;
+html += `</div>`;
+document.getElementById("menu").innerHTML = html;
+}
 
-const priceText = card.querySelector(".price").innerText;
-
-const price = parseInt(priceText.replace("₹",""));
-
+function addToCart(btn,name,price){
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-let existingItem = cart.find(item => item.name === name);
+let existing = cart.find(i=>i.name===name);
+if(existing){ existing.quantity += 1; }
+else{ cart.push({name,price,quantity:1}); }
 
-if(existingItem){
-existingItem.quantity += 1;
-}
-else{
-cart.push({name,price,quantity:1});
-}
+localStorage.setItem("cart",JSON.stringify(cart));
 
-localStorage.setItem("cart", JSON.stringify(cart));
-
-btn.innerText="Added ✓";
+btn.innerText="✓ Added";
 btn.classList.add("added");
 btn.disabled=true;
-
 }
 
+// default load
+showCategory("starters",document.querySelector(".tabs button"));
 </script>
 
-</div>
 </body>
 </html>
