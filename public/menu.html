@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Spice Hub - Menu</title>
+<title>Spice Hub Menu</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
+
 body{
-margin:0;
-font-family:Arial;
 background:#0d3b2e;
 color:white;
 }
@@ -17,29 +16,23 @@ color:white;
 .nav{
 display:flex;
 justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-padding:15px 20px;
+padding:15px 30px;
 }
 
-.logo{font-size:22px;}
-
-/* TABS */
 .tabs{
 display:flex;
 justify-content:center;
-flex-wrap:wrap;
 gap:10px;
+flex-wrap:wrap;
 margin:20px;
 }
 
 .tabs button{
-padding:8px 15px;
+padding:10px 20px;
 border:none;
 border-radius:20px;
 background:white;
 cursor:pointer;
-font-size:12px;
 }
 
 .tabs .active{
@@ -51,25 +44,21 @@ color:white;
 .products{
 display:flex;
 overflow-x:auto;
-gap:15px;
-padding:15px;
-scroll-snap-type:x mandatory;
+gap:20px;
+padding:20px;
 }
 
 .card{
-min-width:180px;
-flex:0 0 auto;
-scroll-snap-align:start;
+min-width:220px;
 background:white;
 color:black;
-border-radius:15px;
+border-radius:20px;
 padding:15px;
 text-align:center;
 }
 
 .card img{
-width:100%;
-height:auto;
+width:120px;
 }
 
 .price{
@@ -77,17 +66,13 @@ color:#1db954;
 font-weight:bold;
 }
 
-button.add{
-padding:8px;
+button{
+padding:8px 15px;
 border:none;
 background:#1db954;
 color:white;
 border-radius:15px;
 cursor:pointer;
-}
-
-@media(min-width:768px){
-.card{min-width:220px;}
 }
 </style>
 </head>
@@ -95,16 +80,15 @@ cursor:pointer;
 <body>
 
 <div class="nav">
-<div class="logo">Spice Hub</div>
-<div onclick="location.href='cart.html'">🛒 Cart</div>
+<h2>☕ Spice Hub</h2>
+<div onclick="location.href='cart.html'">🛒</div>
 </div>
 
 <div class="tabs">
-<button class="active" onclick="showCategory('starters',this)">Starters</button>
-<button onclick="showCategory('main',this)">Main</button>
-<button onclick="showCategory('beverages',this)">Drinks</button>
-<button onclick="showCategory('desserts',this)">Desserts</button>
-<button onclick="showCategory('breads',this)">Breads</button>
+<button class="active" onclick="show('starters',this)">Starters</button>
+<button onclick="show('main',this)">Main</button>
+<button onclick="show('drinks',this)">Drinks</button>
+<button onclick="show('desserts',this)">Desserts</button>
 </div>
 
 <div id="menu"></div>
@@ -113,21 +97,22 @@ cursor:pointer;
 const data={
 starters:[["Paneer Tikka",180],["Chicken 65",220]],
 main:[["Butter Chicken",320],["Veg Biryani",220]],
-beverages:[["Cold Coffee",120],["Mango Shake",140]],
-desserts:[["Ice Cream",80],["Brownie",120]],
-breads:[["Butter Naan",40],["Garlic Naan",50]]
+drinks:[["Cold Coffee",120],["Mango Shake",140]],
+desserts:[["Ice Cream",80],["Brownie",120]]
 };
 
-function showCategory(cat,btn){
+function show(cat,btn){
 document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
 btn.classList.add("active");
 
 let html='<div class="products">';
 data[cat].forEach(i=>{
-html+=`<div class="card">
+html+=`
+<div class="card">
+<img src="coffee.png">
 <h3>${i[0]}</h3>
 <div class="price">₹${i[1]}</div>
-<button class="add">Add</button>
+<button onclick="add('${i[0]}',${i[1]})">Add</button>
 </div>`;
 });
 html+='</div>';
@@ -135,7 +120,14 @@ html+='</div>';
 document.getElementById("menu").innerHTML=html;
 }
 
-showCategory("starters",document.querySelector(".tabs button"));
+function add(name,price){
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+cart.push({name,price,quantity:1});
+localStorage.setItem("cart",JSON.stringify(cart));
+alert("Added!");
+}
+
+show("starters",document.querySelector(".tabs button"));
 </script>
 
 </body>
