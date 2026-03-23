@@ -1,288 +1,178 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Spice Hub - Menu</title>
+<title>Spice Hub Menu</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 
 <style>
-body{
-margin:0;
-font-family:'Poppins',sans-serif;
-background:url('index.jpg') no-repeat center center fixed;
-background-size:cover;
-color:white;
-}
-
-.overlay{
-background:rgba(0,0,0,0.85);
-min-height:100vh;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins';}
+body{background:#0c3b2e;color:white;}
 
 /* NAV */
 .nav{
 display:flex;
 justify-content:space-between;
-padding:15px 20px;
-align-items:center;
-flex-wrap:wrap;
-}
-
-.logo{
-font-size:22px;
-font-weight:700;
-}
-
-/* SIDEBAR */
-.sidebar{
-position:fixed;
-left:-250px;
-top:0;
-width:250px;
-height:100%;
-background:rgba(0,0,0,0.95);
-padding-top:80px;
-transition:0.4s;
-z-index:1000;
-}
-
-.sidebar a{
-display:block;
 padding:15px 25px;
-color:white;
-text-decoration:none;
+align-items:center;
 }
+.nav a{color:white;text-decoration:none;margin:0 10px;}
 
-.sidebar.active{
-left:0;
+/* SECTION */
+.section{
+padding:30px 20px;
 }
-
-/* TITLE */
-.menu-title{
-text-align:center;
-font-size:clamp(28px,5vw,50px);
-margin-top:10px;
-}
-
-/* CATEGORY */
-.category-title{
-font-size:24px;
-margin:30px 20px 10px;
-color:#ff512f;
+.section h2{
+margin-bottom:20px;
+font-size:26px;
 }
 
 /* GRID */
-.menu-container{
+.grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
 gap:20px;
-padding:20px;
 }
 
 /* CARD */
-.menu-card{
-background:rgba(0,0,0,0.8);
-border-radius:15px;
-overflow:hidden;
+.card{
+background:white;
+color:black;
+border-radius:20px;
+padding:15px;
+text-align:center;
 transition:0.3s;
 }
-
-.menu-card img{
+.card:hover{transform:scale(1.05);}
+.card img{
 width:100%;
 height:150px;
 object-fit:cover;
-}
-
-.menu-content{
-padding:10px;
-text-align:center;
+border-radius:10px;
 }
 
 .price{
-color:#ff512f;
+color:#1db954;
+font-weight:bold;
+margin:5px 0;
 }
 
 button{
 padding:8px 15px;
 border:none;
-border-radius:20px;
-background:#ff512f;
+background:#1db954;
 color:white;
+border-radius:20px;
 cursor:pointer;
 }
 
-.added{
-background:green !important;
+/* CONTACT */
+.contact{
+background:#083024;
+padding:30px;
+text-align:center;
+margin-top:40px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="overlay">
-
+<!-- NAV -->
 <div class="nav">
-<div onclick="toggleSidebar()">☰</div>
-<div class="logo">Spice Hub</div>
-<div onclick="location.href='cart.html'">🛒</div>
+<h2>🍽️ Spice Hub</h2>
+<div onclick="location.href='cart.html'">🛒 Cart</div>
 </div>
 
-<!-- SIDEBAR -->
-<div class="sidebar" id="sidebar">
-<a href="#starters">Starters</a>
-<a href="#maincourse">Main Course</a>
-<a href="#beverages">Beverages</a>
-<a href="#desserts">Desserts</a>
-<a href="#breads">Breads</a>
+<!-- STARTERS -->
+<div class="section">
+<h2>Starters</h2>
+<div class="grid">
+
+<div class="card"><img src="panneer.jpg"><h3>Paneer Tikka</h3><div class="price">₹180</div><button onclick="add('Paneer Tikka',180)">Add</button></div>
+<div class="card"><img src="c65.jpg"><h3>Chicken 65</h3><div class="price">₹220</div><button onclick="add('Chicken 65',220)">Add</button></div>
+<div class="card"><img src="spring.jpg"><h3>Veg Spring Roll</h3><div class="price">₹150</div><button onclick="add('Veg Spring Roll',150)">Add</button></div>
+<div class="card"><img src="gobi.jpg"><h3>Gobi Manchurian</h3><div class="price">₹160</div><button onclick="add('Gobi Manchurian',160)">Add</button></div>
+<div class="card"><img src="fishfingers.jpg"><h3>Fish Fingers</h3><div class="price">₹240</div><button onclick="add('Fish Fingers',240)">Add</button></div>
+
+</div>
 </div>
 
-<h1 class="menu-title">Our Premium Menu</h1>
+<!-- MAIN -->
+<div class="section">
+<h2>Main Course</h2>
+<div class="grid">
 
-<div id="menu"></div>
+<div class="card"><img src="butter.jpg"><h3>Butter Chicken</h3><div class="price">₹320</div><button onclick="add('Butter Chicken',320)">Add</button></div>
+<div class="card"><img src="vegbiri.jpg"><h3>Veg Biryani</h3><div class="price">₹220</div><button onclick="add('Veg Biryani',220)">Add</button></div>
+<div class="card"><img src="chick.jpg"><h3>Chicken Biryani</h3><div class="price">₹280</div><button onclick="add('Chicken Biryani',280)">Add</button></div>
+<div class="card"><img src="mutton.jpg"><h3>Mutton Curry</h3><div class="price">₹350</div><button onclick="add('Mutton Curry',350)">Add</button></div>
+<div class="card"><img src="panneerbutter.jpg"><h3>Paneer Butter Masala</h3><div class="price">₹250</div><button onclick="add('Paneer Butter Masala',250)">Add</button></div>
+
+</div>
+</div>
+
+<!-- BEVERAGES -->
+<div class="section">
+<h2>Beverages</h2>
+<div class="grid">
+
+<div class="card"><img src="lime.jpg"><h3>Fresh Lime Soda</h3><div class="price">₹60</div><button onclick="add('Fresh Lime Soda',60)">Add</button></div>
+<div class="card"><img src="coldcoffee.jpg"><h3>Cold Coffee</h3><div class="price">₹120</div><button onclick="add('Cold Coffee',120)">Add</button></div>
+<div class="card"><img src="mango.jpg"><h3>Mango Shake</h3><div class="price">₹140</div><button onclick="add('Mango Shake',140)">Add</button></div>
+<div class="card"><img src="masala.jpg"><h3>Masala Chai</h3><div class="price">₹40</div><button onclick="add('Masala Chai',40)">Add</button></div>
+<div class="card"><img src="mineral.jpg"><h3>Mineral Water</h3><div class="price">₹20</div><button onclick="add('Mineral Water',20)">Add</button></div>
+
+</div>
+</div>
+
+<!-- DESSERTS -->
+<div class="section">
+<h2>Desserts</h2>
+<div class="grid">
+
+<div class="card"><img src="gulabjamun.jpg"><h3>Gulab Jamun</h3><div class="price">₹90</div><button onclick="add('Gulab Jamun',90)">Add</button></div>
+<div class="card"><img src="icecream.jpg"><h3>Ice Cream</h3><div class="price">₹80</div><button onclick="add('Ice Cream',80)">Add</button></div>
+<div class="card"><img src="brownie.jpg"><h3>Chocolate Brownie</h3><div class="price">₹120</div><button onclick="add('Chocolate Brownie',120)">Add</button></div>
+<div class="card"><img src="fruitsalad.jpg"><h3>Fruit Salad</h3><div class="price">₹100</div><button onclick="add('Fruit Salad',100)">Add</button></div>
+<div class="card"><img src="rasagulla.jpg"><h3>Rasgulla</h3><div class="price">₹90</div><button onclick="add('Rasgulla',90)">Add</button></div>
+
+</div>
+</div>
+
+<!-- BREADS -->
+<div class="section">
+<h2>Breads</h2>
+<div class="grid">
+
+<div class="card"><img src="bnaan.jpg"><h3>Butter Naan</h3><div class="price">₹40</div><button onclick="add('Butter Naan',40)">Add</button></div>
+<div class="card"><img src="gnaan.jpg"><h3>Garlic Naan</h3><div class="price">₹50</div><button onclick="add('Garlic Naan',50)">Add</button></div>
+<div class="card"><img src="troti.jpg"><h3>Tandoori Roti</h3><div class="price">₹30</div><button onclick="add('Tandoori Roti',30)">Add</button></div>
+<div class="card"><img src="veg combo.jpg"><h3>Veg Combo</h3><div class="price">₹299</div><button onclick="add('Veg Combo',299)">Add</button></div>
+<div class="card"><img src="chickencombo.jpg"><h3>Chicken Combo</h3><div class="price">₹399</div><button onclick="add('Chicken Combo',399)">Add</button></div>
+
+</div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact">
+<h3>Contact Us</h3>
+<p>📞 987654321</p>
+</div>
 
 <script>
-
-/* IMAGE MAP */
-const imageMap = {
-"Paneer Tikka":"panneer.jpg",
-"Chicken 65":"c65.jpg",
-"Veg Spring Roll":"spring.jpg",
-"Gobi Manchurian":"gobi.jpg",
-"Fish Fingers":"fishfingers.jpg",
-
-"Butter Chicken":"butter.jpg",
-"Veg Biryani":"vegbiri.jpg",
-"Chicken Biryani":"chick.jpg",
-"Mutton Curry":"mutton.jpg",
-"Paneer Butter Masala":"panneerbutter.jpg",
-
-"Fresh Lime Soda":"lime.jpg",
-"Cold Coffee":"coldcoffee.jpg",
-"Mango Shake":"mango.jpg",
-"Masala Chai":"masala.jpg",
-"Mineral Water":"mineral.jpg",
-
-"Gulab Jamun":"gulabjamun.jpg",
-"Ice Cream":"icecream.jpg",
-"Chocolate Brownie":"brownie.jpg",
-"Fruit Salad":"fruitsalad.jpg",
-"Rasgulla":"rasagulla.jpg",
-
-"Butter Naan":"bnaan.jpg",
-"Garlic Naan":"gnaan.jpg",
-"Tandoori Roti":"troti.jpg",
-"Veg Combo":"veg combo.jpg",
-"Chicken Combo":"chickencombo.jpg"
-};
-
-/* DATA */
-const categories = [
-{
-title:"Starters",
-id:"starters",
-items:[
-["Paneer Tikka",180],
-["Chicken 65",220],
-["Veg Spring Roll",150],
-["Gobi Manchurian",160],
-["Fish Fingers",240]
-]
-},
-{
-title:"Main Course",
-id:"maincourse",
-items:[
-["Butter Chicken",320],
-["Veg Biryani",220],
-["Chicken Biryani",280],
-["Mutton Curry",350],
-["Paneer Butter Masala",250]
-]
-},
-{
-title:"Beverages",
-id:"beverages",
-items:[
-["Fresh Lime Soda",60],
-["Cold Coffee",120],
-["Mango Shake",140],
-["Masala Chai",40],
-["Mineral Water",20]
-]
-},
-{
-title:"Desserts",
-id:"desserts",
-items:[
-["Gulab Jamun",90],
-["Ice Cream",80],
-["Chocolate Brownie",120],
-["Fruit Salad",100],
-["Rasgulla",90]
-]
-},
-{
-title:"Breads",
-id:"breads",
-items:[
-["Butter Naan",40],
-["Garlic Naan",50],
-["Tandoori Roti",30],
-["Veg Combo",299],
-["Chicken Combo",399]
-]
-}
-];
-
-/* RENDER */
-const menuDiv = document.getElementById("menu");
-
-categories.forEach(cat=>{
-let html = `<h2 class="category-title" id="${cat.id}">${cat.title}</h2>`;
-html += `<div class="menu-container">`;
-
-cat.items.forEach(item=>{
-html += `
-<div class="menu-card">
-<img src="${imageMap[item[0]]}">
-<div class="menu-content">
-<h3>${item[0]}</h3>
-<div class="price">₹${item[1]}</div>
-<button onclick="addToCart(this)">Add to Cart</button>
-</div>
-</div>`;
-});
-
-html += `</div>`;
-menuDiv.innerHTML += html;
-});
-
-/* FUNCTIONS */
-function toggleSidebar(){
-document.getElementById("sidebar").classList.toggle("active");
-}
-
-function addToCart(btn){
-const card = btn.closest(".menu-card");
-const name = card.querySelector("h3").innerText;
-const price = parseInt(card.querySelector(".price").innerText.replace("₹",""));
-
+function add(name,price){
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
 let existing = cart.find(i=>i.name===name);
-if(existing) existing.quantity++;
-else cart.push({name,price,quantity:1});
 
-localStorage.setItem("cart", JSON.stringify(cart));
+if(existing){existing.quantity++;}
+else{cart.push({name,price,quantity:1});}
 
-btn.innerText="Added ✓";
-btn.classList.add("added");
-btn.disabled=true;
+localStorage.setItem("cart",JSON.stringify(cart));
+alert("Added to cart");
 }
-
 </script>
 
-</div>
 </body>
 </html>
