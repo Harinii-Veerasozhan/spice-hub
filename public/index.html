@@ -5,90 +5,207 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box;}
-body{
-margin:0;
-font-family:Arial;
-background:url('index.jpg') no-repeat center/cover;
-color:white;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
 
-.overlay{
-background:rgba(0,0,0,0.8);
-min-height:100vh;
+body{
+background:#0d3b2e;
+color:white;
 }
 
 /* NAV */
 .nav{
 display:flex;
 justify-content:space-between;
+padding:15px 30px;
 align-items:center;
-flex-wrap:wrap;
-padding:15px 20px;
 }
 
-.logo{
-font-size:22px;
-font-weight:bold;
-}
-
-.nav div span{
-margin:5px 10px;
-cursor:pointer;
-font-size:14px;
+.nav a{
+color:white;
+margin:0 10px;
+text-decoration:none;
 }
 
 /* HERO */
 .hero{
-text-align:center;
-margin-top:80px;
-padding:0 15px;
+display:flex;
+flex-wrap:wrap;
+align-items:center;
+justify-content:space-between;
+padding:40px;
 }
 
-.hero h1{
-font-size:clamp(28px,6vw,60px);
+.hero-text{
+max-width:500px;
 }
 
-.hero p{
-font-size:clamp(14px,3vw,18px);
+.hero-text h1{
+font-size:clamp(28px,5vw,60px);
 }
 
-button{
-padding:12px;
+.hero-text button{
+margin-top:20px;
+padding:12px 25px;
+background:#1db954;
 border:none;
 border-radius:25px;
-background:#1db954;
 color:white;
 cursor:pointer;
-margin:10px;
-width:90%;
-max-width:250px;
+}
+
+.hero img{
+width:300px;
+}
+
+/* CATEGORY */
+.categories{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:10px;
+margin:30px 0;
+}
+
+.categories button{
+padding:10px 20px;
+border:none;
+border-radius:20px;
+background:white;
+cursor:pointer;
+}
+
+.categories .active{
+background:#1db954;
+color:white;
+}
+
+/* PRODUCTS */
+.products{
+display:flex;
+overflow-x:auto;
+gap:20px;
+padding:20px;
+}
+
+.card{
+min-width:200px;
+background:white;
+color:black;
+border-radius:20px;
+padding:15px;
+text-align:center;
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.1);
+}
+
+.card img{
+width:120px;
+}
+
+/* BANNER */
+.banner{
+text-align:center;
+font-size:30px;
+margin:50px 0;
+}
+
+/* POPULAR */
+.popular{
+text-align:center;
+}
+
+.popular-items{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+/* FOOTER */
+.footer{
+background:#083024;
+padding:30px;
+text-align:center;
+margin-top:50px;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+.hero{flex-direction:column;text-align:center;}
 }
 </style>
 </head>
 
 <body>
 
-<div class="overlay">
-
 <div class="nav">
-<div class="logo">Spice Hub</div>
-
+<h2>☕ Spice Hub</h2>
 <div>
-<span onclick="location.href='menu.html'">Menu</span>
-<span onclick="location.href='booking.html'">Booking</span>
-<span onclick="location.href='cart.html'">Cart 🛒</span>
+<a href="menu.html">Menu</a>
+<a href="booking.html">Booking</a>
+<a href="cart.html">Cart</a>
 </div>
 </div>
 
+<!-- HERO -->
 <div class="hero">
-<h1>Welcome to Spice Hub</h1>
-<p>Experience premium dining</p>
-
-<button onclick="location.href='menu.html'">Explore Menu</button>
-<button onclick="location.href='booking.html'">Book Table</button>
+<div class="hero-text">
+<h1>WHAT'S YOURS?</h1>
+<p>Experience premium coffee & dining</p>
+<button onclick="location.href='menu.html'">Order Now</button>
 </div>
 
+<img src="coffee.png">
+</div>
+
+<!-- CATEGORY -->
+<div class="categories">
+<button class="active">Drinks</button>
+<button>Food</button>
+<button>Desserts</button>
+<button>Combo</button>
+</div>
+
+<!-- PRODUCTS -->
+<div class="products">
+<div class="card">
+<img src="coffee.png">
+<h3>Mocha</h3>
+<p>₹120</p>
+</div>
+
+<div class="card">
+<img src="coffee.png">
+<h3>Latte</h3>
+<p>₹100</p>
+</div>
+</div>
+
+<!-- BANNER -->
+<div class="banner">
+UNMATCHED QUALITY
+</div>
+
+<!-- POPULAR -->
+<div class="popular">
+<h2>POPULAR</h2>
+<div class="popular-items">
+<div class="card">
+<img src="coffee.png">
+<p>Mocha Brew</p>
+</div>
+<div class="card">
+<img src="coffee.png">
+<p>Vanilla Latte</p>
+</div>
+</div>
+</div>
+
+<div class="footer">
+<p>© 2026 Spice Hub</p>
 </div>
 
 </body>
