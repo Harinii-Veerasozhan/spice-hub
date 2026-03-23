@@ -4,26 +4,35 @@
 <title>Spice Hub</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
 body{
 background:#0d3b2e;
 color:white;
 }
 
-/* NAV */
+/* NAVBAR */
 .nav{
 display:flex;
 justify-content:space-between;
-padding:15px 30px;
 align-items:center;
+padding:15px 30px;
+flex-wrap:wrap;
+}
+
+.logo{
+font-size:24px;
+font-weight:700;
 }
 
 .nav a{
 color:white;
-margin:0 10px;
 text-decoration:none;
+margin:5px 10px;
+font-size:14px;
 }
 
 /* HERO */
@@ -32,7 +41,7 @@ display:flex;
 flex-wrap:wrap;
 align-items:center;
 justify-content:space-between;
-padding:40px;
+padding:40px 20px;
 }
 
 .hero-text{
@@ -40,21 +49,29 @@ max-width:500px;
 }
 
 .hero-text h1{
-font-size:clamp(28px,5vw,60px);
+font-size:clamp(30px,5vw,60px);
 }
 
-.hero-text button{
-margin-top:20px;
+.hero-text p{
+margin:10px 0;
+font-size:14px;
+color:#ddd;
+}
+
+.hero button{
+margin-top:15px;
 padding:12px 25px;
-background:#1db954;
 border:none;
 border-radius:25px;
+background:#1db954;
 color:white;
 cursor:pointer;
 }
 
+/* HERO IMAGE */
 .hero img{
 width:300px;
+max-width:100%;
 }
 
 /* CATEGORY */
@@ -98,30 +115,39 @@ transition:0.3s;
 }
 
 .card:hover{
-transform:scale(1.1);
+transform:scale(1.05);
 }
 
 .card img{
 width:120px;
+height:120px;
+object-fit:cover;
+}
+
+.price{
+color:#1db954;
+font-weight:bold;
 }
 
 /* BANNER */
 .banner{
 text-align:center;
-font-size:30px;
+font-size:28px;
 margin:50px 0;
+font-weight:700;
 }
 
 /* POPULAR */
 .popular{
 text-align:center;
+padding:20px;
 }
 
 .popular-items{
 display:flex;
 justify-content:center;
-gap:20px;
 flex-wrap:wrap;
+gap:20px;
 }
 
 /* FOOTER */
@@ -129,36 +155,43 @@ flex-wrap:wrap;
 background:#083024;
 padding:30px;
 text-align:center;
-margin-top:50px;
+margin-top:40px;
 }
 
 /* RESPONSIVE */
 @media(max-width:768px){
-.hero{flex-direction:column;text-align:center;}
+.hero{
+flex-direction:column;
+text-align:center;
+}
 }
 </style>
 </head>
 
 <body>
 
+<!-- NAV -->
 <div class="nav">
-<h2>☕ Spice Hub</h2>
+<div class="logo">🍽️ Spice Hub</div>
+
 <div>
 <a href="menu.html">Menu</a>
 <a href="booking.html">Booking</a>
-<a href="cart.html">Cart</a>
+<a href="cart.html">Cart 🛒</a>
 </div>
 </div>
 
 <!-- HERO -->
 <div class="hero">
+
 <div class="hero-text">
 <h1>WHAT'S YOURS?</h1>
-<p>Experience premium coffee & dining</p>
+<p>Where every dish tells a story. Explore premium taste & experience.</p>
+
 <button onclick="location.href='menu.html'">Order Now</button>
 </div>
 
-<img src="coffee.png">
+<img src="coldcoffee.jpg"> <!-- Use your image -->
 </div>
 
 <!-- CATEGORY -->
@@ -166,22 +199,36 @@ margin-top:50px;
 <button class="active">Drinks</button>
 <button>Food</button>
 <button>Desserts</button>
-<button>Combo</button>
+<button>Breads</button>
 </div>
 
 <!-- PRODUCTS -->
 <div class="products">
+
 <div class="card">
-<img src="coffee.png">
-<h3>Mocha</h3>
-<p>₹120</p>
+<img src="coldcoffee.jpg">
+<h3>Cold Coffee</h3>
+<div class="price">₹120</div>
 </div>
 
 <div class="card">
-<img src="coffee.png">
-<h3>Latte</h3>
-<p>₹100</p>
+<img src="mango.jpg">
+<h3>Mango Shake</h3>
+<div class="price">₹140</div>
 </div>
+
+<div class="card">
+<img src="masala.jpg">
+<h3>Masala Chai</h3>
+<div class="price">₹40</div>
+</div>
+
+<div class="card">
+<img src="lime.jpg">
+<h3>Lime Soda</h3>
+<div class="price">₹60</div>
+</div>
+
 </div>
 
 <!-- BANNER -->
@@ -191,21 +238,54 @@ UNMATCHED QUALITY
 
 <!-- POPULAR -->
 <div class="popular">
-<h2>POPULAR</h2>
+<h2>POPULAR ITEMS</h2>
+
 <div class="popular-items">
+
 <div class="card">
-<img src="coffee.png">
-<p>Mocha Brew</p>
+<img src="chick.jpg">
+<h3>Chicken Biryani</h3>
 </div>
+
 <div class="card">
-<img src="coffee.png">
-<p>Vanilla Latte</p>
+<img src="vegbiri.jpg">
+<h3>Veg Biryani</h3>
 </div>
+
+<div class="card">
+<img src="butter.jpg">
+<h3>Butter Chicken</h3>
+</div>
+
 </div>
 </div>
 
+<!-- MORE MENU -->
+<div class="products">
+
+<div class="card">
+<img src="panneer.jpg">
+<h3>Paneer Tikka</h3>
+<div class="price">₹180</div>
+</div>
+
+<div class="card">
+<img src="c65.jpg">
+<h3>Chicken 65</h3>
+<div class="price">₹220</div>
+</div>
+
+<div class="card">
+<img src="gobi.jpg">
+<h3>Gobi Manchurian</h3>
+<div class="price">₹160</div>
+</div>
+
+</div>
+
+<!-- FOOTER -->
 <div class="footer">
-<p>© 2026 Spice Hub</p>
+<p>© 2026 Spice Hub | Taste the Best</p>
 </div>
 
 </body>
