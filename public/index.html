@@ -6,160 +6,688 @@
 <title>Starbucks – Where Every Cup Tells a Story</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Raleway:wght@300;400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
-:root {
-  --green-dark: #0f2318;
-  --green-mid: #1a3d28;
-  --green-brand: #00704a;
-  --green-accent: #00a862;
-  --gold: #c9a84c;
-  --white: #ffffff;
-}
-body {
-  margin:0;
-  font-family:'Raleway',sans-serif;
-  background:var(--green-dark);
-  color:white;
-}
+  :root {
+    --green-dark: #0f2318;
+    --green-mid: #1a3d28;
+    --green-brand: #00704a;
+    --green-accent: #00a862;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --white: #ffffff;
+    --cream: #f7f2ea;
+    --text-light: rgba(255,255,255,0.7);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Raleway', sans-serif; background: var(--green-dark); color: var(--white); overflow-x: hidden; }
 
-/* IMAGE FIX */
-.drink-img, .menu-img {
-  width:100%;
-  height:120px;
-  object-fit:cover;
-  border-radius:12px;
-}
-.drink-img-circle {
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  object-fit:cover;
-}
+  /* NAV */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 48px; background: var(--green-dark);
+    position: sticky; top: 0; z-index: 200;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .nav-logo-circle {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--green-brand);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 1px;
+    color: white; border: 2px solid rgba(255,255,255,0.3); text-align: center; line-height: 1.1;
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 4px;
+    background: rgba(255,255,255,0.06); border-radius: 30px; padding: 5px 8px;
+  }
+  .nav-links a {
+    color: var(--text-light); text-decoration: none;
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 7px 18px; border-radius: 20px; transition: all 0.25s; cursor: pointer;
+  }
+  .nav-links a.active, .nav-links a:hover { background: var(--green-brand); color: white; }
+  .nav-icons { display: flex; gap: 10px; }
+  .nav-icons span {
+    width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.07);
+    display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; transition: background 0.2s;
+  }
+  .nav-icons span:hover { background: var(--green-brand); }
 
-.hero {
-  display:flex;
-  justify-content:space-between;
-  padding:40px;
-}
-.hero-left h1 {
-  font-size:50px;
-}
-.hero-cup img {
-  width:220px;
-}
-.hero-thumb-row {
-  display:flex;
-  gap:10px;
-  margin-top:20px;
-}
-.hero-thumb {
-  border:2px solid #555;
-  border-radius:50%;
-  padding:5px;
-}
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
 
-.drinks-grid {
-  display:flex;
-  gap:15px;
-  padding:20px;
-}
-.drink-card {
-  background:white;
-  color:black;
-  padding:10px;
-  border-radius:10px;
-  width:150px;
-}
+  /* ===== HOME ===== */
+  .hero {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 420px; padding: 50px 48px 0;
+    position: relative; overflow: hidden;
+  }
+  .hero-left { padding-top: 16px; z-index: 2; }
+  .hero-tagline { font-size: 10px; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase; color: var(--text-light); margin-bottom: 10px; }
+  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: 58px; line-height: 1; color: white; margin-bottom: 16px; letter-spacing: 2px; }
+  .hero-title span { color: var(--gold); }
+  .hero-product-name { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green-accent); margin-bottom: 8px; }
+  .hero-desc { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: var(--text-light); line-height: 1.75; max-width: 280px; margin-bottom: 20px; }
+  .hero-rating { display: flex; align-items: center; gap: 10px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; color: var(--text-light); text-transform: uppercase; margin-bottom: 22px; }
+  .hero-rating strong { color: var(--gold); font-size: 20px; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+  .btn-cart { background: transparent; border: 2px solid var(--gold); color: var(--gold); padding: 11px 32px; border-radius: 30px; font-family: 'Raleway', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer; transition: all 0.25s; }
+  .btn-cart:hover { background: var(--gold); color: var(--green-dark); }
+  .hero-thumb-row { display: flex; gap: 10px; margin-top: 28px; }
+  .hero-thumb { width: 54px; height: 54px; border-radius: 50%; background: rgba(255,255,255,0.06); border: 2px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; font-size: 22px; cursor: pointer; transition: border-color 0.2s; }
+  .hero-thumb.active { border-color: var(--gold); }
+  .hero-right { position: relative; display: flex; align-items: center; justify-content: center; }
+  .hero-cup { font-size: 190px; position: relative; z-index: 2; filter: drop-shadow(0 24px 60px rgba(0,0,0,0.6)); animation: float 3.5s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+  .hero-vertical-text { position: absolute; right: -8px; top: 50%; transform: translateY(-50%) rotate(90deg); font-family: 'Bebas Neue', sans-serif; font-size: 56px; color: rgba(255,255,255,0.04); letter-spacing: 6px; white-space: nowrap; }
+  .hero-bean { position: absolute; font-size: 26px; animation: spin 9s linear infinite; opacity: 0.5; }
+  .hero-bean:nth-child(1) { top: 8%; right: 18%; animation-duration: 7s; }
+  .hero-bean:nth-child(2) { bottom: 18%; left: 4%; animation-duration: 11s; font-size: 18px; }
+  .hero-bean:nth-child(3) { top: 35%; left: 12%; animation-duration: 13s; font-size: 14px; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-.menu-items-grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  padding:20px;
-}
-.menu-item-card {
-  background:#1a3d28;
-  padding:10px;
-  border-radius:10px;
-}
+  .menu-tabs { background: white; display: flex; padding: 0 48px; margin-top: 28px; }
+  .menu-tab { padding: 16px 30px; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; color: #888; border-bottom: 3px solid transparent; transition: all 0.2s; }
+  .menu-tab.active { color: var(--green-brand); border-bottom-color: var(--green-brand); }
 
+  .drinks-section { background: white; padding: 28px 48px 42px; }
+  .carousel-wrapper { display: flex; align-items: center; gap: 14px; }
+  .carousel-btn { width: 34px; height: 34px; border-radius: 50%; border: 2px solid #ddd; background: white; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 15px; flex-shrink: 0; transition: all 0.2s; color: #333; }
+  .carousel-btn:hover { background: var(--green-brand); color: white; border-color: var(--green-brand); }
+  .drinks-grid { display: flex; gap: 14px; flex: 1; overflow: hidden; }
+  .drink-card { flex: 1; min-width: 0; background: var(--cream); border-radius: 18px; padding: 20px 14px; text-align: center; transition: transform 0.25s, box-shadow 0.25s; cursor: pointer; }
+  .drink-card:hover { transform: translateY(-5px); box-shadow: 0 14px 32px rgba(0,0,0,0.12); }
+  .drink-card.featured { background: var(--green-dark); color: white; }
+  .drink-emoji { font-size: 56px; display: block; margin-bottom: 10px; }
+  .drink-name { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1.5px; margin-bottom: 10px; color: var(--green-dark); }
+  .drink-card.featured .drink-name { color: white; }
+  .drink-spec-row { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 12px; }
+  .spec-item { font-size: 8px; font-weight: 700; color: #aaa; text-align: left; letter-spacing: 0.5px; line-height: 1.6; }
+  .drink-card.featured .spec-item { color: rgba(255,255,255,0.4); }
+  .btn-add { background: var(--green-brand); color: white; border: none; padding: 7px 18px; border-radius: 20px; font-family: 'Raleway', sans-serif; font-size: 8px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+  .btn-add:hover { background: var(--green-accent); }
+  .btn-add.outline { background: transparent; border: 1.5px solid rgba(255,255,255,0.25); }
+
+  .quality-section { background: var(--green-dark); padding: 80px 48px; position: relative; overflow: hidden; text-align: center; }
+  .quality-title { font-family: 'Bebas Neue', sans-serif; font-size: 72px; color: white; line-height: 1; position: relative; z-index: 2; letter-spacing: 3px; }
+  .quality-cup { font-size: 150px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.1; z-index: 1; }
+  .quality-desc-left { position: absolute; left: 48px; top: 50%; transform: translateY(-50%); font-family: 'Cormorant Garamond', serif; font-size: 14px; color: var(--text-light); line-height: 1.8; max-width: 200px; text-align: left; z-index: 2; }
+  .quality-desc-right { position: absolute; right: 48px; top: 50%; transform: translateY(-50%); font-family: 'Cormorant Garamond', serif; font-size: 14px; color: var(--text-light); line-height: 1.8; max-width: 200px; text-align: right; z-index: 2; }
+
+  .marquee-wrap { background: var(--green-brand); overflow: hidden; padding: 13px 0; }
+  .marquee-track { display: flex; white-space: nowrap; animation: marquee 14s linear infinite; }
+  .marquee-track span { font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 4px; padding: 0 28px; color: white; }
+  .marquee-track span::after { content: '✦'; margin-left: 28px; opacity: 0.5; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .popular-section { background: var(--green-mid); padding: 64px 48px; }
+  .section-label { display: flex; justify-content: center; margin-bottom: 38px; }
+  .label-tag { border: 2px solid var(--gold); color: var(--gold); padding: 8px 44px; border-radius: 4px; font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 4px; }
+  .popular-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .popular-card { background: rgba(255,255,255,0.04); border-radius: 20px; padding: 30px 20px 24px; text-align: center; transition: transform 0.25s; cursor: pointer; position: relative; }
+  .popular-card:hover { transform: translateY(-6px); }
+  .popular-card.first { background: var(--green-dark); }
+  .popular-cup { font-size: 80px; display: block; margin-bottom: 14px; }
+  .popular-name-tag { background: var(--green-brand); color: white; font-family: 'Raleway', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 4px; margin-bottom: 14px; display: inline-block; }
+  .cart-icon-circle { width: 38px; height: 38px; border-radius: 50%; background: var(--green-brand); display: flex; align-items: center; justify-content: center; font-size: 16px; position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); }
+  .btn-add-sm { background: transparent; border: 1.5px solid rgba(255,255,255,0.2); color: white; padding: 6px 16px; border-radius: 20px; font-family: 'Raleway', sans-serif; font-size: 8px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+  .btn-add-sm:hover { background: var(--green-brand); border-color: var(--green-brand); }
+
+  .branches-section { background: var(--green-dark); padding: 60px 48px; display: grid; grid-template-columns: 90px 1fr; gap: 28px; }
+  .branches-label-vert { display: flex; align-items: center; justify-content: center; writing-mode: vertical-lr; transform: rotate(180deg); font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 5px; color: white; background: rgba(255,255,255,0.04); border-radius: 12px; padding: 20px 0; }
+  .branches-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .branch-card { background: rgba(255,255,255,0.04); border-radius: 12px; padding: 16px; display: flex; align-items: center; gap: 14px; transition: background 0.2s; cursor: pointer; }
+  .branch-card:hover { background: rgba(255,255,255,0.09); }
+  .branch-img { width: 52px; height: 52px; border-radius: 8px; background: rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+  .branch-info h4 { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 2px; color: var(--green-accent); margin-bottom: 4px; }
+  .branch-info p { font-size: 9px; color: var(--text-light); line-height: 1.6; font-weight: 500; }
+  .more-btn-wrap { grid-column: 1/-1; text-align: center; margin-top: 8px; }
+  .btn-more { background: transparent; border: 1.5px solid rgba(255,255,255,0.18); color: var(--text-light); padding: 9px 44px; border-radius: 20px; font-family: 'Raleway', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+  .btn-more:hover { background: var(--green-brand); border-color: var(--green-brand); color: white; }
+
+  .contact-section { background: var(--green-dark); padding: 50px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; border-top: 1px solid rgba(255,255,255,0.05); }
+  .contact-box { background: white; border-radius: 18px; padding: 30px; color: var(--green-dark); }
+  .contact-box h3 { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 20px; }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 8px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #999; margin-bottom: 5px; }
+  .form-group input { width: 100%; border: 1.5px solid #e4e4e4; border-radius: 8px; padding: 10px 13px; font-family: 'Raleway', sans-serif; font-size: 11px; color: var(--green-dark); outline: none; transition: border-color 0.2s; }
+  .form-group input:focus { border-color: var(--green-brand); }
+  .btn-submit { background: var(--green-brand); color: white; border: none; padding: 11px 30px; border-radius: 24px; font-family: 'Raleway', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer; transition: background 0.2s; margin-top: 6px; }
+  .btn-submit:hover { background: var(--green-accent); }
+  .thankyou-box { background: var(--green-brand); border-radius: 18px; padding: 30px; display: flex; flex-direction: column; justify-content: center; }
+  .thankyou-box h3 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 3px; margin-bottom: 10px; }
+  .thankyou-box p { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 20px; }
+  .arrow-btn { width: 46px; height: 46px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--green-brand); cursor: pointer; align-self: flex-end; transition: transform 0.2s; }
+  .arrow-btn:hover { transform: translateX(5px); }
+
+  footer { background: var(--green-mid); padding: 46px 48px 28px; display: grid; grid-template-columns: 1fr auto 1fr; gap: 30px; align-items: start; }
+  .footer-left p { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--text-light); line-height: 1.8; max-width: 220px; }
+  .footer-logo-center { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .footer-logo-circle { width: 72px; height: 72px; border-radius: 50%; background: var(--green-dark); border: 3px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 32px; }
+  .footer-right h4 { font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 4px; margin-bottom: 12px; }
+  .subscribe-row { display: flex; gap: 8px; }
+  .subscribe-row input { flex: 1; background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.12); border-radius: 22px; padding: 9px 16px; font-family: 'Raleway', sans-serif; font-size: 10px; color: white; outline: none; }
+  .subscribe-row input::placeholder { color: rgba(255,255,255,0.3); }
+  .subscribe-row button { background: var(--green-brand); border: none; border-radius: 50%; width: 38px; height: 38px; color: white; font-size: 15px; cursor: pointer; transition: background 0.2s; }
+  .subscribe-row button:hover { background: var(--green-accent); }
+  .footer-bottom { background: var(--green-dark); padding: 16px 48px; text-align: center; font-size: 9px; color: rgba(255,255,255,0.25); letter-spacing: 2.5px; font-weight: 700; }
+  .footer-watermark { font-family: 'Bebas Neue', sans-serif; font-size: 80px; letter-spacing: 8px; color: rgba(255,255,255,0.03); text-align: center; padding: 10px 0; background: var(--green-dark); }
+
+  /* ===== MENU PAGE ===== */
+  .page-hero { padding: 60px 48px 40px; background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 100%); position: relative; overflow: hidden; }
+  .page-hero-title { font-family: 'Bebas Neue', sans-serif; font-size: 80px; letter-spacing: 4px; line-height: 1; color: white; }
+  .page-hero-title span { color: var(--gold); }
+  .page-hero-sub { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--text-light); margin-top: 10px; line-height: 1.7; }
+  .page-hero-bg { position: absolute; right: 80px; top: 50%; transform: translateY(-50%); font-size: 200px; opacity: 0.06; }
+
+  .cat-filter { display: flex; gap: 10px; padding: 28px 48px; background: var(--green-dark); flex-wrap: wrap; }
+  .cat-btn { padding: 9px 24px; border-radius: 24px; cursor: pointer; font-family: 'Raleway', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; border: 1.5px solid rgba(255,255,255,0.15); color: var(--text-light); background: transparent; transition: all 0.2s; }
+  .cat-btn.active, .cat-btn:hover { background: var(--green-brand); border-color: var(--green-brand); color: white; }
+
+  .menu-grid-section { padding: 0 48px 60px; background: var(--green-dark); }
+  .menu-category-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 4px; color: var(--gold); margin: 32px 0 18px; display: flex; align-items: center; gap: 14px; }
+  .menu-category-title::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
+  .menu-items-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+  .menu-item-card { background: var(--green-mid); border-radius: 16px; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; cursor: pointer; }
+  .menu-item-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+  .menu-item-img { height: 120px; background: rgba(255,255,255,0.04); display: flex; align-items: center; justify-content: center; font-size: 64px; }
+  .menu-item-body { padding: 16px; }
+  .menu-item-name { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1.5px; margin-bottom: 5px; }
+  .menu-item-desc { font-family: 'Cormorant Garamond', serif; font-size: 12px; color: var(--text-light); line-height: 1.6; margin-bottom: 12px; }
+  .menu-item-footer { display: flex; align-items: center; justify-content: space-between; }
+  .menu-item-price { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--gold); letter-spacing: 1px; }
+  .btn-menu-add { background: var(--green-brand); color: white; border: none; padding: 6px 16px; border-radius: 16px; font-family: 'Raleway', sans-serif; font-size: 8px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+  .btn-menu-add:hover { background: var(--green-accent); }
+  .badge { font-size: 8px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 9px; border-radius: 10px; margin-left: 6px; }
+  .badge-new { background: var(--gold); color: var(--green-dark); }
+  .badge-hot { background: #e74c3c; color: white; }
+  .badge-seasonal { background: #8e44ad; color: white; }
+
+  /* ===== REWARDS PAGE ===== */
+  .rewards-hero { background: linear-gradient(135deg, #0a1f14 0%, #1a3d28 50%, #0f2318 100%); padding: 70px 48px; text-align: center; position: relative; overflow: hidden; }
+  .rewards-hero-bg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 300px; opacity: 0.04; pointer-events: none; }
+  .rewards-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: 72px; letter-spacing: 6px; color: var(--gold); position: relative; z-index: 2; line-height: 1; }
+  .rewards-hero p { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--text-light); margin-top: 12px; position: relative; z-index: 2; }
+
+  .rewards-progress-section { padding: 50px 48px; background: var(--green-dark); }
+  .rewards-progress-section h2 { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; margin-bottom: 24px; }
+  .stars-bar-wrap { background: var(--green-mid); border-radius: 20px; padding: 28px 32px; margin-bottom: 30px; }
+  .stars-count { display: flex; align-items: baseline; gap: 8px; margin-bottom: 16px; }
+  .stars-count .num { font-family: 'Bebas Neue', sans-serif; font-size: 56px; color: var(--gold); line-height: 1; }
+  .stars-count .label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--text-light); text-transform: uppercase; }
+  .progress-bar { height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--green-brand), var(--gold)); border-radius: 10px; width: 62%; }
+  .progress-labels { display: flex; justify-content: space-between; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; color: var(--text-light); text-transform: uppercase; }
+
+  .tiers-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 40px; }
+  .tier-card { border-radius: 16px; padding: 24px; border: 1.5px solid rgba(255,255,255,0.08); }
+  .tier-card.green { background: linear-gradient(135deg, #0d2b1a, #1a4a2e); }
+  .tier-card.gold-tier { background: linear-gradient(135deg, #2a1f06, #4a3510); border-color: var(--gold); }
+  .tier-card.platinum { background: linear-gradient(135deg, #1a1a2e, #16213e); border-color: #a0aec0; }
+  .tier-icon { font-size: 36px; margin-bottom: 12px; }
+  .tier-name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 3px; margin-bottom: 6px; }
+  .tier-card.green .tier-name { color: var(--green-accent); }
+  .tier-card.gold-tier .tier-name { color: var(--gold); }
+  .tier-card.platinum .tier-name { color: #a0aec0; }
+  .tier-stars { font-size: 9px; font-weight: 700; letter-spacing: 2px; color: var(--text-light); margin-bottom: 14px; text-transform: uppercase; }
+  .tier-perks { list-style: none; }
+  .tier-perks li { font-size: 10px; color: var(--text-light); padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; gap: 8px; }
+  .tier-perks li::before { content: '✓'; color: var(--green-accent); font-weight: 700; flex-shrink: 0; }
+  .tier-card.gold-tier .tier-perks li::before { color: var(--gold); }
+  .tier-card.platinum .tier-perks li::before { color: #a0aec0; }
+
+  .rewards-offers { padding: 0 48px 60px; background: var(--green-dark); }
+  .rewards-offers h2 { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; margin-bottom: 22px; }
+  .offers-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  .offer-card { background: var(--green-mid); border-radius: 16px; overflow: hidden; transition: transform 0.25s; cursor: pointer; }
+  .offer-card:hover { transform: translateY(-4px); }
+  .offer-img { height: 100px; display: flex; align-items: center; justify-content: center; font-size: 56px; background: rgba(255,255,255,0.04); }
+  .offer-body { padding: 16px; }
+  .offer-stars { font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .offer-name { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1.5px; margin-bottom: 5px; }
+  .offer-desc { font-family: 'Cormorant Garamond', serif; font-size: 12px; color: var(--text-light); line-height: 1.5; }
+  .btn-redeem { margin-top: 12px; background: transparent; border: 1.5px solid var(--gold); color: var(--gold); padding: 6px 16px; border-radius: 16px; font-family: 'Raleway', sans-serif; font-size: 8px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; display: inline-block; }
+  .btn-redeem:hover { background: var(--gold); color: var(--green-dark); }
+
+  /* ===== GIFT CARDS PAGE ===== */
+  .gc-hero { background: linear-gradient(135deg, #0f2318, #1e3a28, #0f2318); padding: 70px 48px; text-align: center; position: relative; overflow: hidden; }
+  .gc-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: 72px; letter-spacing: 6px; color: white; position: relative; z-index: 2; }
+  .gc-hero h1 span { color: var(--gold); }
+  .gc-hero p { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--text-light); margin-top: 10px; position: relative; z-index: 2; }
+  .gc-hero-bg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 250px; opacity: 0.04; pointer-events: none; }
+
+  .gc-section { padding: 50px 48px; background: var(--green-dark); }
+  .gc-section h2 { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 4px; color: white; margin-bottom: 24px; }
+  .gc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; margin-bottom: 50px; }
+  .gc-card { border-radius: 18px; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; cursor: pointer; }
+  .gc-card:hover { transform: translateY(-6px) rotate(-1deg); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+  .gc-visual { height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; padding: 20px; }
+  .gc-visual.classic { background: linear-gradient(135deg, #1a3d28, #00704a); }
+  .gc-visual.gold-theme { background: linear-gradient(135deg, #2a1a00, #c9a84c); }
+  .gc-visual.holiday { background: linear-gradient(135deg, #1a0a0a, #8B1a1a); }
+  .gc-visual.spring { background: linear-gradient(135deg, #0a1a10, #2d8b57); }
+  .gc-visual.birthday { background: linear-gradient(135deg, #1a0a2e, #6a1a8b); }
+  .gc-visual.limited { background: linear-gradient(135deg, #0a0a1a, #1a1a5e); }
+  .gc-emoji { font-size: 52px; margin-bottom: 8px; }
+  .gc-card-name { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 3px; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
+  .gc-badge { position: absolute; top: 12px; right: 12px; font-size: 8px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 10px; background: var(--gold); color: var(--green-dark); }
+  .gc-body { background: var(--green-mid); padding: 18px; }
+  .gc-desc { font-family: 'Cormorant Garamond', serif; font-size: 12px; color: var(--text-light); line-height: 1.6; margin-bottom: 14px; }
+  .gc-amounts { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .gc-amount-btn { padding: 5px 12px; border-radius: 14px; border: 1.5px solid rgba(255,255,255,0.15); color: var(--text-light); font-family: 'Raleway', sans-serif; font-size: 10px; font-weight: 700; cursor: pointer; background: transparent; transition: all 0.2s; }
+  .gc-amount-btn.selected, .gc-amount-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--green-dark); }
+  .btn-buy-gc { width: 100%; background: var(--green-brand); color: white; border: none; padding: 11px; border-radius: 12px; font-family: 'Raleway', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+  .btn-buy-gc:hover { background: var(--green-accent); }
+
+  .gc-custom-section { background: var(--green-mid); border-radius: 20px; padding: 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; margin-bottom: 40px; }
+  .gc-custom-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 3px; margin-bottom: 10px; }
+  .gc-custom-section p { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: var(--text-light); line-height: 1.7; margin-bottom: 20px; }
+  .gc-preview { height: 160px; border-radius: 14px; background: linear-gradient(135deg, #1a3d28, var(--gold)); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 48px; gap: 8px; box-shadow: 0 12px 40px rgba(0,0,0,0.3); animation: float 4s ease-in-out infinite; }
+  .gc-preview span { font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 3px; color: rgba(255,255,255,0.7); }
+
+  .gc-balance-section { background: rgba(255,255,255,0.03); border: 1.5px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 32px; }
+  .gc-balance-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 3px; margin-bottom: 6px; }
+  .gc-balance-section p { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--text-light); margin-bottom: 18px; }
+  .balance-input-row { display: flex; gap: 10px; }
+  .balance-input-row input { flex: 1; background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px 16px; font-family: 'Raleway', sans-serif; font-size: 11px; color: white; outline: none; }
+  .balance-input-row input::placeholder { color: rgba(255,255,255,0.3); }
+  .btn-check { background: var(--gold); color: var(--green-dark); border: none; padding: 12px 28px; border-radius: 12px; font-family: 'Raleway', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; white-space: nowrap; }
+  .btn-check:hover { opacity: 0.85; }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-left">
-    <h1>Enjoy Your <span style="color:gold">Coffee</span></h1>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo-circle">☕<br>SBX</div>
+  <div class="nav-links">
+    <a class="active" onclick="showPage('home',this)">Home</a>
+    <a onclick="showPage('menu',this)">Menu</a>
+    <a onclick="showPage('rewards',this)">Rewards</a>
+    <a onclick="showPage('giftcards',this)">Gift Cards</a>
+  </div>
+  <div class="nav-icons">
+    <span>👤</span>
+    <span>🛒</span>
+  </div>
+</nav>
 
-    <div class="hero-thumb-row">
-      <div class="hero-thumb"><img src="mocha.jpg" class="drink-img-circle"></div>
-      <div class="hero-thumb"><img src="coffee.jpg" class="drink-img-circle"></div>
-      <div class="hero-thumb"><img src="caramel.jpg" class="drink-img-circle"></div>
-      <div class="hero-thumb"><img src="hazel.jpg" class="drink-img-circle"></div>
-      <div class="hero-thumb"><img src="masala.jpg" class="drink-img-circle"></div>
+<!-- ════════════ HOME ════════════ -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-tagline">Where Every Cup Tells a Story</p>
+      <h1 class="hero-title">WHAT'S <span>YOURS</span>?</h1>
+      <p class="hero-product-name">Frappuccino Coffee Delight</p>
+      <p class="hero-desc">Indulge in the perfect blend of coffee and ice — the Frappuccino is your cool coffee escape. Elevate your coffee moment with a creamy, icy delight.</p>
+      <div class="hero-rating"><span>BEST RATING</span><strong>$8.6</strong></div>
+      <button class="btn-cart">ADD TO CART</button>
+      <div class="hero-thumb-row">
+        <div class="hero-thumb active">☕</div>
+        <div class="hero-thumb">🧋</div>
+        <div class="hero-thumb">🥤</div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-bean">☕</div>
+      <div class="hero-bean">☕</div>
+      <div class="hero-bean">☕</div>
+      <div class="hero-cup">🥤</div>
+      <div class="hero-vertical-text">FRAPUCCINO FRAPUCCINO</div>
+    </div>
+  </section>
+
+  <div class="menu-tabs">
+    <div class="menu-tab active" onclick="setTab(this)">Drinks</div>
+    <div class="menu-tab" onclick="setTab(this)">Food</div>
+    <div class="menu-tab" onclick="setTab(this)">At Home</div>
+    <div class="menu-tab" onclick="setTab(this)">Merchandise</div>
+  </div>
+
+  <section class="drinks-section">
+    <div class="carousel-wrapper">
+      <button class="carousel-btn">‹</button>
+      <div class="drinks-grid">
+        <div class="drink-card">
+          <span class="drink-emoji">☕</span>
+          <div class="drink-name">Caramel Latte</div>
+          <div class="drink-spec-row">
+            <div class="spec-item">MILK<br>Whole</div><div class="spec-item">SIZE<br>Tall</div>
+            <div class="spec-item">SYRUP<br>Caramel</div><div class="spec-item">TEMP<br>Hot</div>
+          </div>
+          <button class="btn-add">ADD NOW</button>
+        </div>
+        <div class="drink-card featured">
+          <span class="drink-emoji">🧋</span>
+          <div class="drink-name">Mocha Frapp</div>
+          <div class="drink-spec-row">
+            <div class="spec-item">MILK<br>Oat</div><div class="spec-item">SIZE<br>Grande</div>
+            <div class="spec-item">BLEND<br>Yes</div><div class="spec-item">TOP<br>Cream</div>
+          </div>
+          <button class="btn-add outline">ADD TO CART</button>
+        </div>
+        <div class="drink-card">
+          <span class="drink-emoji">🥤</span>
+          <div class="drink-name">Vanilla Bean</div>
+          <div class="drink-spec-row">
+            <div class="spec-item">MILK<br>Almond</div><div class="spec-item">SIZE<br>Venti</div>
+            <div class="spec-item">SYRUP<br>Vanilla</div><div class="spec-item">TEMP<br>Iced</div>
+          </div>
+          <button class="btn-add">ADD NOW</button>
+        </div>
+        <div class="drink-card">
+          <span class="drink-emoji">🍵</span>
+          <div class="drink-name">Hazelnut Brew</div>
+          <div class="drink-spec-row">
+            <div class="spec-item">MILK<br>2%</div><div class="spec-item">SIZE<br>Tall</div>
+            <div class="spec-item">SYRUP<br>Hazel</div><div class="spec-item">TEMP<br>Hot</div>
+          </div>
+          <button class="btn-add">ADD NOW</button>
+        </div>
+      </div>
+      <button class="carousel-btn">›</button>
+    </div>
+  </section>
+
+  <section class="quality-section">
+    <div class="quality-desc-left">At Starbucks, every sip is a journey into a world of rich, aromatic coffee perfection.</div>
+    <div class="quality-cup">☕</div>
+    <h2 class="quality-title">UNMATCHED<br>QUALITY</h2>
+    <div class="quality-desc-right">Starbucks redefines the coffee experience with every cup, blending quality, flavour, and comfort.</div>
+  </section>
+
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>STARBUCKS</span><span>STARBUCKS</span><span>STARBUCKS</span><span>STARBUCKS</span>
+      <span>STARBUCKS</span><span>STARBUCKS</span><span>STARBUCKS</span><span>STARBUCKS</span>
+      <span>STARBUCKS</span><span>STARBUCKS</span><span>STARBUCKS</span><span>STARBUCKS</span>
     </div>
   </div>
 
-  <div class="hero-cup">
-    <img src="mocha.jpg">
-  </div>
-</section>
+  <section class="popular-section">
+    <div class="section-label"><div class="label-tag">POPULAR</div></div>
+    <div class="popular-grid">
+      <div class="popular-card first">
+        <span class="popular-cup">🥤</span>
+        <div class="popular-name-tag">MOCHA BREW</div>
+        <div class="cart-icon-circle">🛒</div>
+      </div>
+      <div class="popular-card">
+        <span class="popular-cup">☕</span>
+        <div class="popular-name-tag">VANILLA LATTE</div>
+        <button class="btn-add-sm">ADD TO CART</button>
+      </div>
+      <div class="popular-card">
+        <span class="popular-cup">🧋</span>
+        <div class="popular-name-tag">CARAMEL FRAPP</div>
+        <button class="btn-add-sm">ADD TO CART</button>
+      </div>
+    </div>
+  </section>
 
-<!-- DRINKS -->
-<section class="drinks-grid">
-  <div class="drink-card">
-    <img src="mocha.jpg" class="drink-img">
-    <h4>Mocha</h4>
-  </div>
+  <section class="branches-section">
+    <div class="branches-label-vert">OUR BRANCHES</div>
+    <div>
+      <div class="branches-grid">
+        <div class="branch-card"><div class="branch-img">🏪</div><div class="branch-info"><h4>New York</h4><p>845 Pennsylvania Ave NW<br>New York, NY 10001</p></div></div>
+        <div class="branch-card"><div class="branch-img">🏪</div><div class="branch-info"><h4>New York</h4><p>612 5th Avenue Suite 200<br>New York, NY 10020</p></div></div>
+        <div class="branch-card"><div class="branch-img">🏪</div><div class="branch-info"><h4>New York</h4><p>200 Vesey St, Brookfield<br>New York, NY 10281</p></div></div>
+        <div class="branch-card"><div class="branch-img">🏪</div><div class="branch-info"><h4>New York</h4><p>30 Rockefeller Plaza<br>New York, NY 10112</p></div></div>
+        <div class="more-btn-wrap"><button class="btn-more">MORE</button></div>
+      </div>
+    </div>
+  </section>
 
-  <div class="drink-card">
-    <img src="coffee.jpg" class="drink-img">
-    <h4>Coffee</h4>
-  </div>
-
-  <div class="drink-card">
-    <img src="caramel.jpg" class="drink-img">
-    <h4>Caramel</h4>
-  </div>
-
-  <div class="drink-card">
-    <img src="hazel.jpg" class="drink-img">
-    <h4>Hazel</h4>
-  </div>
-
-  <div class="drink-card">
-    <img src="masala.jpg" class="drink-img">
-    <h4>Masala</h4>
-  </div>
-</section>
-
-<!-- MENU -->
-<section class="menu-items-grid">
-  <div class="menu-item-card">
-    <img src="mocha.jpg" class="menu-img">
-    <h4>Mocha Latte</h4>
-  </div>
-
-  <div class="menu-item-card">
-    <img src="coffee.jpg" class="menu-img">
-    <h4>Classic Coffee</h4>
+  <div class="marquee-wrap" style="background:var(--green-dark);border-top:1px solid rgba(255,255,255,0.05)">
+    <div class="marquee-track" style="animation-direction:reverse">
+      <span>STARBUCKS</span><span>STARBUCKS</span><span>STARBUCKS</span><span>STARBUCKS</span>
+      <span>STARBUCKS</span><span>STARBUCKS</span><span>STARBUCKS</span><span>STARBUCKS</span>
+    </div>
   </div>
 
-  <div class="menu-item-card">
-    <img src="caramel.jpg" class="menu-img">
-    <h4>Caramel Brew</h4>
+  <section class="contact-section">
+    <div class="contact-box">
+      <h3>Contact</h3>
+      <div class="form-group"><label>Name</label><input type="text" placeholder="Enter your name"></div>
+      <div class="form-group"><label>Email</label><input type="email" placeholder="Enter your email"></div>
+      <button class="btn-submit">SUBMIT</button>
+    </div>
+    <div class="thankyou-box">
+      <h3>THANK YOU!</h3>
+      <p>Hang tight! We're serving your order soon.</p>
+      <div class="arrow-btn">→</div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-left"><p>Read the best with a coffee cup. We serve the finest blends from our Frappuccino collection and everything in between.</p></div>
+    <div class="footer-logo-center">
+      <div class="footer-logo-circle">☕</div>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:4px;color:var(--text-light)">STARBUCKS</span>
+    </div>
+    <div class="footer-right">
+      <h4>Subscribe</h4>
+      <div class="subscribe-row">
+        <input type="email" placeholder="Enter your email">
+        <button>→</button>
+      </div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--text-light);margin-top:10px;line-height:1.7">Join us today to stay up to date for upcoming specials and offers.</p>
+    </div>
+  </footer>
+  <div class="footer-watermark">UNMATCHED</div>
+  <div class="footer-bottom">© 2026 STARBUCKS CORPORATION. ALL RIGHTS RESERVED.</div>
+</div>
+
+<!-- ════════════ MENU ════════════ -->
+<div id="page-menu" class="page">
+  <div class="page-hero">
+    <h1 class="page-hero-title">OUR <span>MENU</span></h1>
+    <p class="page-hero-sub">Handcrafted with passion. Served with love. Discover your next favourite.</p>
+    <div class="page-hero-bg">☕</div>
   </div>
 
-  <div class="menu-item-card">
-    <img src="hazel.jpg" class="menu-img">
-    <h4>Hazelnut Coffee</h4>
+  <div class="cat-filter">
+    <button class="cat-btn active" onclick="filterMenu('all',this)">All</button>
+    <button class="cat-btn" onclick="filterMenu('hot',this)">Hot Drinks</button>
+    <button class="cat-btn" onclick="filterMenu('cold',this)">Cold Drinks</button>
+    <button class="cat-btn" onclick="filterMenu('frapp',this)">Frappuccinos</button>
+    <button class="cat-btn" onclick="filterMenu('food',this)">Food</button>
+    <button class="cat-btn" onclick="filterMenu('merch',this)">Merchandise</button>
   </div>
 
-  <div class="menu-item-card">
-    <img src="masala.jpg" class="menu-img">
-    <h4>Masala Chai</h4>
-  </div>
-</section>
+  <div class="menu-grid-section">
+    <div class="menu-category-title" data-cat="hot">☕ Hot Drinks</div>
+    <div class="menu-items-grid" id="grid-hot">
+      <div class="menu-item-card" data-cat="hot"><div class="menu-item-img">☕</div><div class="menu-item-body"><div class="menu-item-name">Caramel Macchiato <span class="badge badge-hot">HOT</span></div><div class="menu-item-desc">Freshly steamed milk with vanilla syrup, marked with espresso and caramel drizzle.</div><div class="menu-item-footer"><div class="menu-item-price">$5.75</div><button class="btn-menu-add">ADD</button></div></div></div>
+      <div class="menu-item-card" data-cat="hot"><div class="menu-item-img">🫖</div><div class="menu-item-body"><div class="menu-item-name">Flat White</div><div class="menu-item-desc">Ristretto shots of espresso with whole milk steamed to a silky microfoam.</div><div class="menu-item-footer"><div class="menu-item-price">$4.95</div><button class="btn-menu-add">ADD</button></div></div></div>
+      <div class="menu-item-card" data-cat="hot"><div class="menu-item-img">☕</div><div class="menu-item-body"><div class="menu-item-name">Hazelnut Latte <span class="badge badge-new">NEW</span></div><div class="menu-item-desc">Smooth espresso with hazelnut syrup and velvety steamed milk, topped with foam.</div><div class="menu-item-footer"><div class="menu-item-price">$5.25</div><button class="btn-menu-add">ADD</button></div></div></div>
+    </div>
 
+    <div class="menu-category-title" data-cat="cold">🧊 Cold Drinks</div>
+    <div class="menu-items-grid" id="grid-cold">
+      <div class="menu-item-card" data-cat="cold"><div class="menu-item-img">🥤</div><div class="menu-item-body"><div class="menu-item-name">Iced Americano</div><div class="menu-item-desc">Espresso shots topped with cold water and ice. Brisk, bold and undeniably Starbucks.</div><div class="menu-item-footer"><div class="menu-item-price">$4.45</div><button class="btn-menu-add">ADD</button></div></div></div>
+      <div class="menu-item-card" data-cat="cold"><div class="menu-item-img">🧋</div><div class="menu-item-body"><div class="menu-item-name">Cold Brew <span class="badge badge-hot">POPULAR</span></div><div class="menu-item-desc">Slow-steeped 20 hours for a remarkably smooth, naturally sweet cold brew coffee.</div><div class="menu-item-footer"><div class="menu-item-price">$5.45</div><button class="btn-menu-add">ADD</button></div></div></div>
+      <div class="menu-item-card" data-cat="cold"><div class="menu-item-img">🍵</div><div class="menu-item-body"><div class="menu-item-name">Iced Matcha Latte <span class="badge badge-new">NEW</span></div><div class="menu-item-desc">Finely ground Japanese matcha blended with milk and ice. Earthy, vibrant, refreshing.</div><div class="menu-item-footer"><div class="menu-item-price">$5.95</div><button class="btn-menu-add">ADD</button></div></div></div>
+    </div>
+
+    <div class="menu-category-title" data-cat="frapp">🌀 Frappuccinos</div>
+    <div class="menu-items-grid" id="grid-frapp">
+      <div class="menu-item-card" data-cat="frapp"><div class="coffee">🥤</div><div class="menu-item-body"><div class="menu-item-name">Mocha Frappuccino <span class="badge badge-hot">BESTSELLER</span></div><div class="menu-item-desc">Coffee, mocha sauce, milk and ice blended with whipped cream on top.</div><div class="menu-item-footer"><div class="menu-item-price">$6.25</div><button class="btn-menu-add">ADD</button></div></div></div>
+      <div class="menu-item-card" data-cat="frapp"><div class="coffee">🍦</div><div class="menu-item-body"><div class="menu-item-name">Vanilla Bean Frapp</div><div class="menu-item-desc">Creamy blend of vanilla bean, milk and ice topped with whipped cream — no coffee.</div><div class="menu-item-footer"><div class="menu-item-price">$5.95</div><button class="btn-menu-add">ADD</button></div></div></div>
+      <div class="menu-item-card" data-cat="frapp"><div class="menu-item-img">☕</div><div class="menu-item-body"><div class="menu-item-name">Caramel Frappuccino <span class="badge badge-seasonal">SEASONAL</span></div><div class="menu-item-desc">Buttery caramel syrup blended with coffee and milk, drizzled with caramel sauce.</div><div class="menu-item-footer"><div class="menu-item-price">$6.45</div><button class="btn-menu-add">ADD</button></div></div></div>
+    </div>
+
+    <div class="menu-category-title" data-cat="food">🥐 Food</div>
+    <div class="menu-items-grid" id="grid-food">
+      <div class="menu-item-card" data-cat="food"><div class="menu-item-img">🥐</div><div class="menu-item-body"><div class="menu-item-name">Butter Croissant</div><div class="menu-item-desc">Flaky, buttery, golden croissant baked fresh every morning. Perfect with any drink.</div><div class="menu-item-footer"><div class="menu-item-price">$3.25</div><button class="btn-menu-add">ADD</button></div></div></div>
+      <div class="menu-item-card" data-cat="food"><div class="menu-item-img">🧁</div><div class="menu-item-body"><div class="menu-item-name">Birthday Cake Pop <span class="badge badge-new">NEW</span></div><div class="menu-item-desc">Moist cake mixed with icing, dipped in white chocolatey coating and rainbow sprinkles.</div><div class="menu-item-footer"><div class="menu-item-price">$2.95</div><button class="btn-menu-add">ADD</button></div></div></div>
+      <div class="menu-item-card" data-cat="food"><div class="menu-item-img">🥪</div><div class="menu-item-body"><div class="menu-item-name">Turkey Pesto Panini</div><div class="menu-item-desc">Slow-roasted turkey with basil pesto and provolone on toasted ciabatta bread.</div><div class="menu-item-footer"><div class="menu-item-price">$8.45</div><button class="btn-menu-add">ADD</button></div></div></div>
+    </div>
+
+    <div class="menu-category-title" data-cat="merch">🎁 Merchandise</div>
+    <div class="menu-items-grid" id="grid-merch">
+      <div class="menu-item-card" data-cat="merch"><div class="menu-item-img">🫖</div><div class="menu-item-body"><div class="menu-item-name">Ceramic Mug 12oz</div><div class="menu-item-desc">Classic Starbucks ceramic mug with the iconic siren logo. Dishwasher safe.</div><div class="menu-item-footer"><div class="menu-item-price">$18.95</div><button class="btn-menu-add">ADD</button></div></div></div>
+      <div class="menu-item-card" data-cat="merch"><div class="menu-item-img">🧃</div><div class="menu-item-body"><div class="menu-item-name">Tumbler 24oz <span class="badge badge-hot">HOT ITEM</span></div><div class="menu-item-desc">Double-wall insulated tumbler keeps drinks cold for 24 hours and hot for 12.</div><div class="menu-item-footer"><div class="menu-item-price">$29.95</div><button class="btn-menu-add">ADD</button></div></div></div>
+      <div class="menu-item-card" data-cat="merch"><div class="menu-item-img">🛍️</div><div class="menu-item-body"><div class="menu-item-name">Reusable Tote Bag</div><div class="menu-item-desc">Eco-friendly canvas tote with Starbucks branding. Help us reduce plastic waste.</div><div class="menu-item-footer"><div class="menu-item-price">$14.95</div><button class="btn-menu-add">ADD</button></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ REWARDS ════════════ -->
+<div id="page-rewards" class="page">
+  <div class="rewards-hero">
+    <div class="rewards-hero-bg">⭐</div>
+    <h1>STARBUCKS<br>REWARDS</h1>
+    <p>Earn Stars. Enjoy Rewards. Every sip counts.</p>
+  </div>
+
+  <div class="rewards-progress-section">
+    <h2>YOUR STARS</h2>
+    <div class="stars-bar-wrap">
+      <div class="stars-count">
+        <div class="num">310</div>
+        <div class="label">Stars collected</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="progress-labels">
+        <span>⭐ Green (0)</span><span>Gold (300)</span><span>Platinum (500)</span>
+      </div>
+    </div>
+    <div class="tiers-grid">
+      <div class="tier-card green">
+        <div class="tier-icon">🌿</div>
+        <div class="tier-name">Green Level</div>
+        <div class="tier-stars">0 – 299 STARS</div>
+        <ul class="tier-perks">
+          <li>Free birthday drink</li>
+          <li>Mobile ordering</li>
+          <li>Free refills (hot/iced tea & coffee)</li>
+          <li>Bonus star challenges</li>
+        </ul>
+      </div>
+      <div class="tier-card gold-tier">
+        <div class="tier-icon">⭐</div>
+        <div class="tier-name">Gold Level</div>
+        <div class="tier-stars">300 – 499 STARS · CURRENT</div>
+        <ul class="tier-perks">
+          <li>All Green benefits</li>
+          <li>Free item every 200 stars</li>
+          <li>Personalised gold card</li>
+          <li>Exclusive member offers</li>
+          <li>Double star days</li>
+        </ul>
+      </div>
+      <div class="tier-card platinum">
+        <div class="tier-icon">💎</div>
+        <div class="tier-name">Platinum Level</div>
+        <div class="tier-stars">500+ STARS</div>
+        <ul class="tier-perks">
+          <li>All Gold benefits</li>
+          <li>Free item every 150 stars</li>
+          <li>Early access to new products</li>
+          <li>Free customisation upgrades</li>
+          <li>Priority support line</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="rewards-offers">
+    <h2>REDEEM YOUR STARS</h2>
+    <div class="offers-grid">
+      <div class="offer-card"><div class="offer-img">☕</div><div class="offer-body"><div class="offer-stars">⭐ 25 Stars</div><div class="offer-name">Customisation Add-on</div><div class="offer-desc">Add an extra shot, syrup, or dairy swap to any drink on us.</div><button class="btn-redeem">REDEEM</button></div></div>
+      <div class="offer-card"><div class="offer-img">🥐</div><div class="offer-body"><div class="offer-stars">⭐ 100 Stars</div><div class="offer-name">Free Brewed Coffee or Tea</div><div class="offer-desc">Enjoy any brewed hot or iced coffee or tea at no charge.</div><button class="btn-redeem">REDEEM</button></div></div>
+      <div class="offer-card"><div class="offer-img">🧋</div><div class="offer-body"><div class="offer-stars">⭐ 200 Stars</div><div class="offer-name">Free Handcrafted Drink</div><div class="offer-desc">Any size latte, frappuccino, cold brew or refresher — your pick.</div><button class="btn-redeem">REDEEM</button></div></div>
+      <div class="offer-card"><div class="offer-img">🥗</div><div class="offer-body"><div class="offer-stars">⭐ 300 Stars</div><div class="offer-name">Free Food Item</div><div class="offer-desc">Choose any sandwich, protein box, salad or bakery item on us.</div><button class="btn-redeem">REDEEM</button></div></div>
+      <div class="offer-card"><div class="offer-img">🛍️</div><div class="offer-body"><div class="offer-stars">⭐ 400 Stars</div><div class="offer-name">Select Merchandise</div><div class="offer-desc">Redeem for a select piece of merchandise valued at up to $20.</div><button class="btn-redeem">REDEEM</button></div></div>
+      <div class="offer-card"><div class="offer-img">📦</div><div class="offer-body"><div class="offer-stars">⭐ 500 Stars</div><div class="offer-name">At-Home Coffee Bag</div><div class="offer-desc">Take Starbucks home with a select bag of whole-bean or ground coffee.</div><button class="btn-redeem">REDEEM</button></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ GIFT CARDS ════════════ -->
+<div id="page-giftcards" class="page">
+  <div class="gc-hero">
+    <div class="gc-hero-bg">🎁</div>
+    <h1>GIFT <span>CARDS</span></h1>
+    <p>Give the gift of great coffee. For every occasion, there's a Starbucks card.</p>
+  </div>
+
+  <div class="gc-section">
+    <h2>CHOOSE A DESIGN</h2>
+    <div class="gc-grid">
+      <div class="gc-card"><div class="gc-visual classic"><div class="gc-emoji">☕</div><div class="gc-card-name">CLASSIC GREEN</div></div><div class="gc-body"><div class="gc-desc">The timeless Starbucks gift card. Perfect for any coffee lover, any occasion.</div><div class="gc-amounts"><button class="gc-amount-btn selected">$10</button><button class="gc-amount-btn">$25</button><button class="gc-amount-btn">$50</button><button class="gc-amount-btn">$100</button></div><button class="btn-buy-gc">BUY NOW</button></div></div>
+      <div class="gc-card"><div class="gc-visual gold-theme"><div class="gc-badge">PREMIUM</div><div class="gc-emoji">⭐</div><div class="gc-card-name">GOLD EDITION</div></div><div class="gc-body"><div class="gc-desc">Luxurious gold design for those special moments. Makes every gift feel extraordinary.</div><div class="gc-amounts"><button class="gc-amount-btn selected">$25</button><button class="gc-amount-btn">$50</button><button class="gc-amount-btn">$100</button><button class="gc-amount-btn">$200</button></div><button class="btn-buy-gc">BUY NOW</button></div></div>
+      <div class="gc-card"><div class="gc-visual holiday"><div class="gc-badge">LIMITED</div><div class="gc-emoji">🎄</div><div class="gc-card-name">HOLIDAY CHEER</div></div><div class="gc-body"><div class="gc-desc">Spread holiday warmth with this festive seasonal design. Available for a limited time.</div><div class="gc-amounts"><button class="gc-amount-btn selected">$15</button><button class="gc-amount-btn">$30</button><button class="gc-amount-btn">$50</button><button class="gc-amount-btn">$75</button></div><button class="btn-buy-gc">BUY NOW</button></div></div>
+      <div class="gc-card"><div class="gc-visual spring"><div class="gc-emoji">🌸</div><div class="gc-card-name">SPRING BLOOM</div></div><div class="gc-body"><div class="gc-desc">Fresh spring florals to celebrate the season. A thoughtful gift for anyone you love.</div><div class="gc-amounts"><button class="gc-amount-btn selected">$10</button><button class="gc-amount-btn">$25</button><button class="gc-amount-btn">$50</button><button class="gc-amount-btn">$100</button></div><button class="btn-buy-gc">BUY NOW</button></div></div>
+      <div class="gc-card"><div class="gc-visual birthday"><div class="gc-badge">CELEBRATE</div><div class="gc-emoji">🎂</div><div class="gc-card-name">BIRTHDAY BASH</div></div><div class="gc-body"><div class="gc-desc">Celebrate their special day the Starbucks way. A perfect birthday surprise they'll love.</div><div class="gc-amounts"><button class="gc-amount-btn selected">$20</button><button class="gc-amount-btn">$35</button><button class="gc-amount-btn">$50</button><button class="gc-amount-btn">$100</button></div><button class="btn-buy-gc">BUY NOW</button></div></div>
+      <div class="gc-card"><div class="gc-visual limited"><div class="gc-badge">EXCLUSIVE</div><div class="gc-emoji">💫</div><div class="gc-card-name">MIDNIGHT STAR</div></div><div class="gc-body"><div class="gc-desc">An exclusive dark edition for the most discerning coffee connoisseur in your life.</div><div class="gc-amounts"><button class="gc-amount-btn selected">$50</button><button class="gc-amount-btn">$75</button><button class="gc-amount-btn">$100</button><button class="gc-amount-btn">$200</button></div><button class="btn-buy-gc">BUY NOW</button></div></div>
+    </div>
+
+    <div class="gc-custom-section">
+      <div>
+        <h3>CREATE A CUSTOM CARD</h3>
+        <p>Make it truly personal. Upload your own photo, add a heartfelt message, and choose your value. The perfect personalised gift for someone special.</p>
+        <button class="btn-submit">PERSONALISE NOW</button>
+      </div>
+      <div class="gc-preview">🎨<span>YOUR DESIGN HERE</span></div>
+    </div>
+
+    <div class="gc-balance-section">
+      <h3>CHECK YOUR BALANCE</h3>
+      <p>Enter your gift card number and PIN to check your remaining balance instantly.</p>
+      <div class="balance-input-row">
+        <input type="text" placeholder="Card number (16 digits)">
+        <input type="text" placeholder="PIN (8 digits)" style="max-width:180px">
+        <button class="btn-check">CHECK BALANCE</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showPage(name, el) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    el.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function setTab(el) {
+    el.closest('.menu-tabs').querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function filterMenu(cat, btn) {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.menu-item-card').forEach(c => {
+      c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+    });
+    document.querySelectorAll('[data-cat]').forEach(el => {
+      if (el.classList.contains('menu-category-title'))
+        el.style.display = (cat === 'all' || el.dataset.cat === cat) ? '' : 'none';
+    });
+    document.querySelectorAll('.menu-items-grid').forEach(grid => {
+      const vis = [...grid.querySelectorAll('.menu-item-card')].some(c => c.style.display !== 'none');
+      grid.style.display = vis ? '' : 'none';
+    });
+  }
+
+  document.querySelectorAll('.gc-amounts').forEach(group => {
+    group.querySelectorAll('.gc-amount-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        group.querySelectorAll('.gc-amount-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      });
+    });
+  });
+
+  document.querySelectorAll('.hero-thumb').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      document.querySelectorAll('.hero-thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    });
+  });
+</script>
 </body>
 </html>
