@@ -1,310 +1,268 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starbucks Landing Page Clone</title>
-    <style>
-        /* CSS VARIABLES FOR CONSISTENCY */
-        :root {
-            --dark-bg: #06231A;
-            --sb-green: #00704A;
-            --accent-green: #1E3932;
-            --white: #ffffff;
-            --text-gray: #b3b3b3;
-        }
+<title>Spice Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 
-        body {
-            background-color: var(--dark-bg);
-            color: var(--white);
-            overflow-x: hidden;
-        }
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
 
-        /* NAVIGATION */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background: rgba(6, 35, 26, 0.9);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+body{
+background:#0b3d2e;
+color:white;
+}
 
-        .logo img { width: 40px; }
+/* NAV */
+.nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px;
+}
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-        }
+.logo{
+font-size:20px;
+font-weight:700;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-        }
+.nav-icons span{
+margin-left:15px;
+cursor:pointer;
+font-size:20px;
+}
 
-        /* HERO SECTION */
-        .hero {
-            display: flex;
-            align-items: center;
-            padding: 60px 10%;
-            min-height: 80vh;
-            position: relative;
-        }
+/* HERO */
+.hero{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:30px 20px;
+flex-wrap:wrap;
+}
 
-        .hero-content { flex: 1; }
-        .hero-image { flex: 1; text-align: center; position: relative; }
-        
-        .hero-image img {
-            width: 80%;
-            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
-        }
+.hero-text{
+max-width:400px;
+}
 
-        .hero-content h3 { color: var(--text-gray); letter-spacing: 2px; font-size: 14px; }
-        .hero-content h1 { font-size: 3.5rem; margin: 10px 0; line-height: 1.1; }
-        .hero-content h1 span { color: var(--sb-green); }
-        .hero-content p { color: var(--text-gray); margin-bottom: 25px; max-width: 400px; }
+.hero-text h1{
+font-size:52px;
+font-weight:900;
+line-height:1.1;
+}
 
-        .btn-main {
-            background: var(--white);
-            color: var(--dark-bg);
-            padding: 12px 30px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-        }
+.hero-text p{
+margin:15px 0;
+color:#ccc;
+}
 
-        /* DRINK SLIDER / CATEGORIES */
-        .category-nav {
-            display: flex;
-            justify-content: center;
-            background: var(--accent-green);
-            padding: 15px 0;
-            margin-top: 50px;
-        }
+.hero-text button{
+padding:12px 30px;
+border:none;
+border-radius:25px;
+background:#1db954;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
 
-        .category-nav span {
-            margin: 0 20px;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            opacity: 0.7;
-        }
+.hero-img img{
+width:260px;
+border-radius:20px;
+}
 
-        .category-nav .active { opacity: 1; border-bottom: 2px solid white; }
+/* CATEGORY */
+.categories{
+display:flex;
+gap:10px;
+padding:15px 20px;
+overflow-x:auto;
+}
 
-        /* PRODUCT GRID */
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 50px 10%;
-        }
+.categories button{
+padding:10px 20px;
+border:none;
+border-radius:25px;
+background:white;
+color:black;
+cursor:pointer;
+}
 
-        .card {
-            background: #0a2d22;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            transition: 0.3s;
-        }
+.categories .active{
+background:#1db954;
+color:white;
+}
 
-        .card:hover { transform: translateY(-10px); background: var(--sb-green); }
-        .card img { width: 100px; margin-bottom: 15px; }
-        .card h4 { font-size: 14px; margin-bottom: 10px; }
+/* SCROLL */
+.scroll{
+display:flex;
+gap:15px;
+padding:20px;
+overflow-x:auto;
+}
 
-        /* MARQUEE SECTION */
-        .marquee {
-            background: var(--sb-green);
-            padding: 15px 0;
-            overflow: hidden;
-            white-space: nowrap;
-        }
+.card{
+min-width:160px;
+background:white;
+color:black;
+border-radius:20px;
+padding:10px;
+text-align:center;
+}
 
-        .marquee-content {
-            display: inline-block;
-            animation: scroll 20s linear infinite;
-            font-weight: 900;
-            font-size: 2rem;
-            letter-spacing: 10px;
-        }
+.card img{
+width:100%;
+height:110px;
+object-fit:cover;
+border-radius:12px;
+}
 
-        @keyframes scroll {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
+.price{
+color:#1db954;
+font-weight:bold;
+}
 
-        /* BRANCHES SECTION */
-        .branches {
-            padding: 50px 10%;
-            display: flex;
-            gap: 40px;
-        }
+/* BANNER */
+.banner{
+text-align:center;
+font-size:30px;
+font-weight:900;
+margin:30px 0;
+}
 
-        .branch-title {
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-            font-size: 2rem;
-            font-weight: bold;
-            border-left: 2px solid white;
-            padding-left: 10px;
-        }
+/* POPULAR */
+.popular{
+padding:20px;
+}
 
-        .branch-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            flex-grow: 1;
-        }
+.popular-items{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+justify-content:center;
+}
 
-        .branch-card {
-            background: #0d3529;
-            padding: 20px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+/* CONTACT */
+.contact{
+background:#06281e;
+padding:25px;
+text-align:center;
+margin-top:30px;
+}
 
-        /* FOOTER */
-        footer {
-            background: #041a13;
-            padding: 50px 10%;
-            text-align: center;
-        }
-
-        .contact-form input {
-            background: transparent;
-            border: 1px solid #2e4d44;
-            padding: 10px;
-            width: 100%;
-            margin-bottom: 10px;
-            color: white;
-        }
-
-        .footer-bottom {
-            margin-top: 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid #1e3932;
-            padding-top: 20px;
-        }
-
-    </style>
+/* MOBILE */
+@media(max-width:768px){
+.hero{
+flex-direction:column;
+text-align:center;
+}
+.hero-img img{
+margin-top:20px;
+}
+.hero-text h1{
+font-size:36px;
+}
+}
+</style>
 </head>
+
 <body>
 
-    <header>
-        <div class="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png" alt="Logo">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Menu</a></li>
-                <li><a href="#">Rewards</a></li>
-                <li><a href="#">Gift Cards</a></li>
-            </ul>
-        </nav>
-        <div class="icons">🛒 👤</div>
-    </header>
+<!-- NAV -->
+<div class="nav">
+<div class="logo">☕ Spice Hub</div>
+<div class="nav-icons">
+<span onclick="location.href='menu.html'">📋</span>
+<span onclick="location.href='cart.html'">🛒</span>
+</div>
+</div>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h3>WHERE EVERY CUP TELLS A STORY.</h3>
-            <h1>WHAT'S <span>YOURS</span>?</h1>
-            <p><strong>FRAPPUCCINO COFFEE DELIGHT</strong><br>
-            Indulge in the perfect blend of coffee and ice. Elevate your coffee moment with a creamy ice Frappuccino delight.</p>
-            <p>BEST RATING ⭐⭐⭐⭐⭐ <strong>$8.6</strong></p>
-            <a href="#" class="btn-main">ADD TO CART</a>
-        </div>
-        <div class="hero-image">
-            <img src="https://www.starbucks.com.cn/assets/images/featured/2021relaunch/frappuccino-mocha.png" alt="Main Coffee">
-        </div>
-    </section>
+<!-- HERO -->
+<div class="hero">
+<div class="hero-text">
+<h1>WHAT'S<br>YOURS?</h1>
+<p>Where every sip tells a story</p>
+<button onclick="location.href='menu.html'">Order Now</button>
+</div>
 
-    <div class="category-nav">
-        <span class="active">DRINKS</span>
-        <span>FOOD</span>
-        <span>AT HOME</span>
-        <span>MERCHANDISE</span>
-    </div>
+<div class="hero-img">
+<img src="coffee.jpg"> <!-- MAIN IMAGE -->
+</div>
+</div>
 
-    <section class="products">
-        <div class="card">
-            <img src="https://globalassets.starbucks.com/assets/270428612ca4479e956550ca31b54a85.jpg" alt="coffee">
-            <h4>CARAMEL LATTE</h4>
-            <p>$5.50</p>
-        </div>
-        <div class="card" style="background: var(--sb-green);">
-            <img src="https://globalassets.starbucks.com/assets/f4fd128666514300a747063428d0113c.jpg" alt="coffee">
-            <h4>MOCHA FRAPP</h4>
-            <p>$6.20</p>
-            <button style="border:none; padding:5px 10px; border-radius:10px; cursor:pointer;">ADD TO CART</button>
-        </div>
-        <div class="card">
-            <img src="https://globalassets.starbucks.com/assets/19904945143a4e92a40ef903e1e90e75.jpg" alt="coffee">
-            <h4>VANILLA BEAN</h4>
-            <p>$5.00</p>
-        </div>
-        <div class="card">
-            <img src="https://globalassets.starbucks.com/assets/02ea801aaed2439598f06071cca7668b.jpg" alt="coffee">
-            <h4>HAZELNUT BREW</h4>
-            <p>$4.80</p>
-        </div>
-    </section>
+<!-- CATEGORY -->
+<div class="categories">
+<button class="active">Drinks</button>
+<button>Special</button>
+<button>Hot</button>
+<button>Cold</button>
+</div>
 
-    <div class="marquee">
-        <div class="marquee-content">
-            STARBUCKS STARBUCKS STARBUCKS STARBUCKS STARBUCKS STARBUCKS STARBUCKS STARBUCKS
-        </div>
-    </div>
+<!-- SCROLL ITEMS -->
+<div class="scroll">
 
-    <section class="branches">
-        <div class="branch-title">OUR BRANCHES</div>
-        <div class="branch-grid">
-            <div class="branch-card">📍 NEW YORK <br> <small>880 Broadway, NY 10003</small></div>
-            <div class="branch-card">📍 NEW YORK <br> <small>150 Varick St, NY 10013</small></div>
-            <div class="branch-card">📍 NEW YORK <br> <small>250 W 57th St, NY 10107</small></div>
-            <div class="branch-card">📍 NEW YORK <br> <small>1111 Lexington Ave, NY 10021</small></div>
-        </div>
-    </section>
+<div class="card">
+<img src="mocha.jpg">
+<h4>Mocha</h4>
+<div class="price">₹180</div>
+</div>
 
-    <footer>
-        <div style="display: flex; justify-content: space-around; align-items: flex-start; text-align: left;">
-            <div class="contact-form" style="width: 40%;">
-                <h3>CONTACT US</h3><br>
-                <input type="text" placeholder="NAME">
-                <input type="email" placeholder="EMAIL">
-                <button class="btn-main">SUBMIT</button>
-            </div>
-            <div style="width: 40%; background: var(--sb-green); padding: 30px; border-radius: 15px;">
-                <h2>THANK YOU!</h2>
-                <p>Hang tight! We're coming your way soon!</p>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png" width="50">
-            <div>
-                <input type="text" placeholder="SUBSCRIBE" style="background: white; border:none; padding: 10px;">
-                <button style="padding: 10px; background: black; color: white;">➔</button>
-            </div>
-        </div>
-    </footer>
+<div class="card">
+<img src="caramel.jpg">
+<h4>Caramel Coffee</h4>
+<div class="price">₹200</div>
+</div>
+
+<div class="card">
+<img src="hazel.jpg">
+<h4>Hazelnut Latte</h4>
+<div class="price">₹190</div>
+</div>
+
+<div class="card">
+<img src="masala.jpg">
+<h4>Masala Tea</h4>
+<div class="price">₹80</div>
+</div>
+
+</div>
+
+<!-- BANNER -->
+<div class="banner">UNMATCHED QUALITY</div>
+
+<!-- POPULAR -->
+<div class="popular">
+<h2>POPULAR</h2>
+
+<div class="popular-items">
+<div class="card">
+<img src="mocha.jpg">
+<h4>Mocha Special</h4>
+</div>
+
+<div class="card">
+<img src="caramel.jpg">
+<h4>Caramel Delight</h4>
+</div>
+
+<div class="card">
+<img src="hazel.jpg">
+<h4>Hazelnut Classic</h4>
+</div>
+</div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact">
+<h3>Contact Us</h3>
+<p>📞 987654321</p>
+</div>
 
 </body>
 </html>
