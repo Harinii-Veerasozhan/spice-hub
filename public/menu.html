@@ -1,134 +1,288 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Menu</title>
+<title>Spice Hub - Menu</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
-body{background:#0c3b2e;color:white;}
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:url('index.jpg') no-repeat center center fixed;
+background-size:cover;
+color:white;
+}
+
+.overlay{
+background:rgba(0,0,0,0.85);
+min-height:100vh;
+}
 
 /* NAV */
 .nav{
 display:flex;
 justify-content:space-between;
-padding:15px;
-}
-
-/* TABS */
-.tabs{
-display:flex;
-justify-content:center;
-gap:10px;
-margin:20px;
+padding:15px 20px;
+align-items:center;
 flex-wrap:wrap;
 }
-.tabs button{
-padding:10px;
-border:none;
-border-radius:20px;
-background:white;
-cursor:pointer;
-}
-.tabs .active{background:#1db954;color:white;}
 
-/* PRODUCTS */
-.products{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
+.logo{
+font-size:22px;
+font-weight:700;
+}
+
+/* SIDEBAR */
+.sidebar{
+position:fixed;
+left:-250px;
+top:0;
+width:250px;
+height:100%;
+background:rgba(0,0,0,0.95);
+padding-top:80px;
+transition:0.4s;
+z-index:1000;
+}
+
+.sidebar a{
+display:block;
+padding:15px 25px;
+color:white;
+text-decoration:none;
+}
+
+.sidebar.active{
+left:0;
+}
+
+/* TITLE */
+.menu-title{
+text-align:center;
+font-size:clamp(28px,5vw,50px);
+margin-top:10px;
+}
+
+/* CATEGORY */
+.category-title{
+font-size:24px;
+margin:30px 20px 10px;
+color:#ff512f;
+}
+
+/* GRID */
+.menu-container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
 gap:20px;
 padding:20px;
 }
-.card{
-width:180px;
-background:white;
-color:black;
-border-radius:20px;
-padding:15px;
+
+/* CARD */
+.menu-card{
+background:rgba(0,0,0,0.8);
+border-radius:15px;
+overflow:hidden;
+transition:0.3s;
+}
+
+.menu-card img{
+width:100%;
+height:150px;
+object-fit:cover;
+}
+
+.menu-content{
+padding:10px;
 text-align:center;
 }
-.card img{width:100px;height:100px;object-fit:cover;}
-.price{color:#1db954;font-weight:bold;}
+
+.price{
+color:#ff512f;
+}
+
 button{
-background:#1db954;
+padding:8px 15px;
 border:none;
-padding:8px;
+border-radius:20px;
+background:#ff512f;
 color:white;
-border-radius:15px;
 cursor:pointer;
+}
+
+.added{
+background:green !important;
 }
 </style>
 </head>
 
 <body>
 
+<div class="overlay">
+
 <div class="nav">
-<h2>☕ Spice Hub</h2>
+<div onclick="toggleSidebar()">☰</div>
+<div class="logo">Spice Hub</div>
 <div onclick="location.href='cart.html'">🛒</div>
 </div>
 
-<div class="tabs">
-<button class="active" onclick="filter('all',this)">All</button>
-<button onclick="filter('drinks',this)">Drinks</button>
-<button onclick="filter('food',this)">Food</button>
-<button onclick="filter('desserts',this)">Desserts</button>
-<button onclick="filter('breads',this)">Breads</button>
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+<a href="#starters">Starters</a>
+<a href="#maincourse">Main Course</a>
+<a href="#beverages">Beverages</a>
+<a href="#desserts">Desserts</a>
+<a href="#breads">Breads</a>
 </div>
 
-<div class="products">
+<h1 class="menu-title">Our Premium Menu</h1>
 
-<div class="card" data="drinks">
-<img src="coldcoffee.jpg">
-<h3>Cold Coffee</h3>
-<div class="price">₹120</div>
-<button onclick="add('Cold Coffee',120)">Add</button>
-</div>
-
-<div class="card" data="food">
-<img src="chick.jpg">
-<h3>Chicken Biryani</h3>
-<div class="price">₹280</div>
-<button onclick="add('Chicken Biryani',280)">Add</button>
-</div>
-
-<div class="card" data="desserts">
-<img src="gulabjamun.jpg">
-<h3>Gulab Jamun</h3>
-<div class="price">₹90</div>
-<button onclick="add('Gulab Jamun',90)">Add</button>
-</div>
-
-<div class="card" data="breads">
-<img src="bnaan.jpg">
-<h3>Butter Naan</h3>
-<div class="price">₹40</div>
-<button onclick="add('Butter Naan',40)">Add</button>
-</div>
-
-</div>
+<div id="menu"></div>
 
 <script>
-function filter(cat,btn){
-document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
-btn.classList.add("active");
 
-document.querySelectorAll(".card").forEach(c=>{
-if(cat==="all"||c.getAttribute("data")===cat){
-c.style.display="block";
-}else{
-c.style.display="none";
+/* IMAGE MAP */
+const imageMap = {
+"Paneer Tikka":"panneer.jpg",
+"Chicken 65":"c65.jpg",
+"Veg Spring Roll":"spring.jpg",
+"Gobi Manchurian":"gobi.jpg",
+"Fish Fingers":"fishfingers.jpg",
+
+"Butter Chicken":"butter.jpg",
+"Veg Biryani":"vegbiri.jpg",
+"Chicken Biryani":"chick.jpg",
+"Mutton Curry":"mutton.jpg",
+"Paneer Butter Masala":"panneerbutter.jpg",
+
+"Fresh Lime Soda":"lime.jpg",
+"Cold Coffee":"coldcoffee.jpg",
+"Mango Shake":"mango.jpg",
+"Masala Chai":"masala.jpg",
+"Mineral Water":"mineral.jpg",
+
+"Gulab Jamun":"gulabjamun.jpg",
+"Ice Cream":"icecream.jpg",
+"Chocolate Brownie":"brownie.jpg",
+"Fruit Salad":"fruitsalad.jpg",
+"Rasgulla":"rasagulla.jpg",
+
+"Butter Naan":"bnaan.jpg",
+"Garlic Naan":"gnaan.jpg",
+"Tandoori Roti":"troti.jpg",
+"Veg Combo":"veg combo.jpg",
+"Chicken Combo":"chickencombo.jpg"
+};
+
+/* DATA */
+const categories = [
+{
+title:"Starters",
+id:"starters",
+items:[
+["Paneer Tikka",180],
+["Chicken 65",220],
+["Veg Spring Roll",150],
+["Gobi Manchurian",160],
+["Fish Fingers",240]
+]
+},
+{
+title:"Main Course",
+id:"maincourse",
+items:[
+["Butter Chicken",320],
+["Veg Biryani",220],
+["Chicken Biryani",280],
+["Mutton Curry",350],
+["Paneer Butter Masala",250]
+]
+},
+{
+title:"Beverages",
+id:"beverages",
+items:[
+["Fresh Lime Soda",60],
+["Cold Coffee",120],
+["Mango Shake",140],
+["Masala Chai",40],
+["Mineral Water",20]
+]
+},
+{
+title:"Desserts",
+id:"desserts",
+items:[
+["Gulab Jamun",90],
+["Ice Cream",80],
+["Chocolate Brownie",120],
+["Fruit Salad",100],
+["Rasgulla",90]
+]
+},
+{
+title:"Breads",
+id:"breads",
+items:[
+["Butter Naan",40],
+["Garlic Naan",50],
+["Tandoori Roti",30],
+["Veg Combo",299],
+["Chicken Combo",399]
+]
 }
+];
+
+/* RENDER */
+const menuDiv = document.getElementById("menu");
+
+categories.forEach(cat=>{
+let html = `<h2 class="category-title" id="${cat.id}">${cat.title}</h2>`;
+html += `<div class="menu-container">`;
+
+cat.items.forEach(item=>{
+html += `
+<div class="menu-card">
+<img src="${imageMap[item[0]]}">
+<div class="menu-content">
+<h3>${item[0]}</h3>
+<div class="price">₹${item[1]}</div>
+<button onclick="addToCart(this)">Add to Cart</button>
+</div>
+</div>`;
 });
+
+html += `</div>`;
+menuDiv.innerHTML += html;
+});
+
+/* FUNCTIONS */
+function toggleSidebar(){
+document.getElementById("sidebar").classList.toggle("active");
 }
 
-function add(name,price){
-let cart=JSON.parse(localStorage.getItem("cart"))||[];
-cart.push({name,price,quantity:1});
-localStorage.setItem("cart",JSON.stringify(cart));
-alert("Added!");
+function addToCart(btn){
+const card = btn.closest(".menu-card");
+const name = card.querySelector("h3").innerText;
+const price = parseInt(card.querySelector(".price").innerText.replace("₹",""));
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let existing = cart.find(i=>i.name===name);
+if(existing) existing.quantity++;
+else cart.push({name,price,quantity:1});
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+btn.innerText="Added ✓";
+btn.classList.add("added");
+btn.disabled=true;
 }
+
 </script>
 
+</div>
 </body>
 </html>
